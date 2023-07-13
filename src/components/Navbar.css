@@ -1,0 +1,19 @@
+.navbar {
+  width: 100%;
+  padding: 30px 0;
+  box-sizing: border-box;
+  margin-bottom: 80px;
+  background-color: lightblue;
+}
+.navbar ul {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+}
+.navbar li {
+  margin: 25px;
+}
+.navbar a {
+  color: #333;
+}

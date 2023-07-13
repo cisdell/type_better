@@ -1,12 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+//libs
+import React from "react";
+
+//components
+import Navbar from "./components/Navbar";
+
+//styles
+import "./App.css";
 
 function App() {
-  console.log('hello console log')
   return (
-    <div className="App">
-      Hello World
+    <div className="container">
+      <div className="App">
+        <Navbar />
+      </div>
     </div>
   );
 }
