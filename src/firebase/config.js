@@ -10,6 +10,8 @@ import { firebaseConfig } from "./FirebaseConfig.js";
 
 // Your web app's Firebase configuration
 
+//init firebase
+initializeApp(firebaseConfig);
 
 // init firestore
 const db = getFirestore();
