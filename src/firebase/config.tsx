@@ -1,24 +1,20 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
-import 'firebase/storage';
-
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+//
+//firebase config
+import { firebaseConfig } from "./FirebaseConfig.js";
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-console.log('hello in config.tsx')
-// console.log(firebaseConfig)
 
-// init services
 
-const projectFirestore = firebase.firestore();
-const projectAuth = firebase.auth();
-const projectStorage = firebase.storage()
+// init firestore
+const db = getFirestore();
 
-// timestammp
-const timestamp = firebase.firestore.Timestamp
 
-export { projectFirestore, projectAuth, projectStorage, timestamp };
-
+//init firebase auth
+const auth = getAuth()
+export { auth, db };
