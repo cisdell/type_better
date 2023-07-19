@@ -11,6 +11,24 @@ const {signup, isPending, error} = useSignup();
 
 
   return (
-    <div>HELLO</div>
+    <div>
+      <h2>SignUp</h2>
+      <form>
+        <label>
+          <span>email:</span>
+          <input
+            type="email"
+          />
+        </label>
+
+        <label>
+          <span>password:</span>
+          <input
+            type="password"
+          />
+        </label>
+        <button>sign up</button>
+      </form>
+    </div>
   )
 }
