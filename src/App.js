@@ -19,6 +19,7 @@ function App() {
         <Sidebar />
         <div className="container">
           <Navbar />
+          <Signup />
           {/* <Routes>
             <Route>
               <Signup />
