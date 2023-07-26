@@ -15,6 +15,7 @@ export const useLogout = () => {
     try {
       //
       const { uid } = user;
+      console.log(user)
       //signout
       await auth.signOut();
 
