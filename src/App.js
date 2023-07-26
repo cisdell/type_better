@@ -7,6 +7,9 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
+
+//functions
+import { useGuest } from "./hooks/useLogin";
 //styles
 import "./App.css";
 
@@ -16,13 +19,16 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Sidebar />
+        {user && <Sidebar />}
         <div className="container">
           <Navbar />
           {/* <Signup /> */}
           <Routes>
-            <Route path="/signup" element={<Signup />}/>
-            <Route path="/login" element={<Login />}/>
+            <Route path="/signup" element={!user ? <Signup /> : null} />
+            <Route path="/login" element={!user ? <Login /> : null} />
+            {/* <Route path="/guestmode" element={useGuest} /> */}
+
+            {!user && <Route path="/logout" element={<Login />} />}
           </Routes>
         </div>
       </BrowserRouter>

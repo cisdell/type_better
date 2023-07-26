@@ -5,11 +5,17 @@ import {useAuthContext} from './useAuthContext';
 import {auth} from '../firebase/config'
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-export const useLogin = () => {
+export const useLogin = (guest) => {
+  const [guestEmail, guestPW] = ['guest@gmail.com','guest1234'];
   const [error, setError] = useState(null)
   const {dispatch} = useAuthContext()
 
   const login = async (email, password) => {
+    if (guest==='GUESTMODE') {
+      email = guestEmail;
+      password = guestPW;
+    }
+
     setError(null)
     signInWithEmailAndPassword(auth, email, password)
     .then((res)=> {
@@ -23,8 +29,11 @@ export const useLogin = () => {
   return {error, login}
 }
 
-export const useGuest = () => {
-  const [id, pw] = ['guest@gmail.com','guest1234'];
-  const guest = useLogin.login(id, pw);
-  return guest
-}
+// export const useGuest = () => {
+//   const [id, pw] = ['guest@gmail.com','guest1234'];
+//   console.log(id, pw)
+//   const guest = useLogin()
+//   guest.login(id, pw)
+//   console.log(guest)
+//   return guest
+// }
