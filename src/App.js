@@ -19,15 +19,12 @@ function App() {
         <Sidebar />
         <div className="container">
           <Navbar />
-          <Signup />
-          {/* <Routes>
-            <Route>
-              <Signup />
-            </Route>
-            <Route>
-              <Login />
-            </Route>
-          </Routes> */}
+          {/* <Signup /> */}
+          <Routes>
+            <Route path="/signup" element={<Signup />}/>
+            <Route path="/login" element={<Login />}/>
+
+          </Routes>
         </div>
       </BrowserRouter>
     </div>

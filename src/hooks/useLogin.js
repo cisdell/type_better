@@ -22,3 +22,9 @@ export const useLogin = () => {
   }
   return {error, login}
 }
+
+export const useGuest = () => {
+  const [id, pw] = ['guest@gmail.com','guest1234'];
+  const guest = useLogin.login(id, pw);
+  return guest
+}
