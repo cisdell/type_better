@@ -1,8 +1,16 @@
-.sidebar {
-  width: 300px;
-  min-width: 300px;
-  background: pink;
+.Sidebar {
+  width: 200px;
+  min-width: 200px;
   box-sizing: border-box;
   position: relative;
-
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
+/* .Sidebar .Sidebar-content {
+  position: center;
+
+
+
+} */

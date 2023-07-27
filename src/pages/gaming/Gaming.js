@@ -1,9 +1,23 @@
-import React from 'react'
+//libs
+import { useState } from "react";
 
-let data: string[];
-data = ['hello','myname','is','Andrew','Cho','']
-export default function Gaming() {
+//components
+import Timer from '../../components/Timer';
+import Lifeblocks from '../../components/Lifeblocks';
+
+import Words from '../../components/Words';
+import TestForm from '../../components/TestForm';
+
+//styles
+import "./Gaming.css";
+
+
+export default function Gaming({ gameOn }) {
+
+
   return (
-    <div>Gaming</div>
-  )
+    <div className="game-container">
+      <p>hello!</p>
+    </div>
+  );
 }
