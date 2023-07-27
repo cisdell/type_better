@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
 
+//styles
+import "./Signup.css"
+
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +18,7 @@ export default function Signup() {
   };
 
   return (
-    <div>
+    <div className="login-form">
       <h2>SignUp</h2>
       <form onSubmit={handleSubmit}>
         <label>
