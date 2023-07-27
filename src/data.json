@@ -1,3 +1,30 @@
 {
-  'words':
+  "employees": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 30,
+      "position": "Software Engineer"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "age": 28,
+      "position": "Product Manager"
+    },
+    {
+      "firstName": "Michael",
+      "lastName": "Johnson",
+      "age": 35,
+      "position": "Data Scientist"
+    }
+  ],
+  "company": "ABC Tech Solutions",
+  "location": "New York",
+  "establishedYear": 2005
 }
+
+
+
+
+
