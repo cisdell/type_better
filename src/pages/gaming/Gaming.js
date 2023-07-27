@@ -1,23 +1,28 @@
 //libs
 import { useState } from "react";
-
+import { useEffect } from "react";
 //components
-import Timer from '../../components/Timer';
-import Lifeblocks from '../../components/Lifeblocks';
+// import Timer from '../../components/Timer';
+// import Lifeblocks from '../../components/Lifeblocks';
+//imported these guys on the side bar
+import data from "../../data.json";
 
-import Words from '../../components/Words';
-import TestForm from '../../components/TestForm';
+import Word from "../../components/Word";
+import TestForm from "../../components/TestForm";
 
 //styles
 import "./Gaming.css";
 
-
 export default function Gaming({ gameOn }) {
-
+  // console.log(data)
+  // var words = data.words;
 
   return (
-    <div className="game-container">
-      <p>hello!</p>
-    </div>
+    <>
+      <p>hello! Start playing your game!</p>
+      <div className="game-container">
+        <Word/>
+      </div>
+    </>
   );
 }
