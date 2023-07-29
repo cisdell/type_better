@@ -10,19 +10,22 @@ import Word from "../../components/Word";
 import TestForm from "../../components/TestForm";
 
 
-//data
-//import data from "../../data.json";
 //styles
 import "./Gaming.css";
 
-let wordbank = [
-  "andrew",
-  "endure",
-  "troop",
-  "floor",
-  "throw",
-  'abc','def','afdf','sdfsdfsdf'
-];
+//data
+import data from "../../data.json";
+let wordbank = data.words
+
+// let wordbank = [
+//   "andrew",
+//   "endure",
+//   "troop",
+//   "floor",
+//   "throw",
+//   'abc','def','afdf','sdfsdfsdf'
+// ];
+
 
 export default function Gaming({ gameOn }) {
   //states
@@ -55,21 +58,22 @@ export default function Gaming({ gameOn }) {
     await setDisplayedWords(displayedWords)
   }
 
+  //text input sumit.
   const submitTry = async (e) => {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
       await removeWord(tryValue)
     }
-    setTryValue('')
+    setTryValue('') // should clear the field after hitting return
     console.log(displayedWords)
   }
 
   return (
     <div className="gaming-container">
       <button onClick={wordPush}>MakeWord</button>
-        {/* <span>
+        <span>
         {displayedWords.map(wo =>(<span>{wo}</span>))}
-        </span> */}
+        </span>
         <p>hello! Start playing your game!</p>
 
         <div className="words-display">
