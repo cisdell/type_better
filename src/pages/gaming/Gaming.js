@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import Word from "../../components/Word";
 import TestForm from "../../components/TestForm";
 
+
 //data
 //import data from "../../data.json";
 //styles
@@ -20,38 +21,57 @@ let wordbank = [
   "troop",
   "floor",
   "throw",
+  'abc','def','afdf','sdfsdfsdf'
 ];
 
 export default function Gaming({ gameOn }) {
-  const [words, setWords] = useState([]);
+  //states
+  const [displayedWords, setDisplayedWords] = useState([]);
   const [wordsCount, setWordsCount] = useState(0);
+  const [speed, setSpeed] = useState(1000)
+  const [submissionAttempt, SetSubmissionAttempt] = useState('')
+  // const []
 
-  // console.log(data)
-  // var words = data.words;
-  // let word = 'Andrew'
-  // let word2 = 'YongTang'
+  // data for the Word component
+  let word_data = {s: speed, a: true };
+
+  //function to
   const wordPush = () => {
     console.log("wordPush");
     let new_word = wordbank.shift();
-    setWords([...words, new_word]);
+    setWordsCount(wordsCount+1)
+    setDisplayedWords([...displayedWords, new_word]);
   };
-  let randomCol = () => {
-    return Math.floor(Math.random() * 3);
-  };
-  let word_data = { r: 1, c: ()=>randomCol(), s: 1000, a: true };
-  useEffect(() => {
-    randomCol();
-  }, [word_data]);
+  console.log(submissionAttempt)
+
+
+  // useEffect(() => {
+  //   randomCol();
+  // }, [word_data]);
   return (
-    <>
-      <p>hello! Start playing your game!</p>
-      <div className="game-container">
-        <button onClick={wordPush}>MakeWord</button>
-        {/* <Word word={word}/> */}
-        {words.map((w) => (
-          <Word word={w} word_data={word_data} />
-        ))}
-      </div>
-    </>
+    <div className="gaming-container">
+      <button onClick={wordPush}>MakeWord</button>
+        <p>hello! Start playing your game!</p>
+
+        <div className="words-display">
+          {/* <Word word={word}/> */}
+          {displayedWords.map((w) => (
+            <Word word={w} word_data={word_data} />
+          ))}
+        </div>
+        <span className="ground">------GROUND------</span>
+        <div className="attempt-box">
+        <form>
+        <label>
+            <span>Type in the words before they hit the ground!</span>
+            <input
+              required
+              type="text"
+              onChange={(e)=> SetSubmissionAttempt(e.target.value)}
+            />
+        </label>
+        </form>
+        </div>
+    </div>
   );
 }
