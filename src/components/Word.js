@@ -22,7 +22,7 @@ export default function Word({word, word_data}) {
   };
 
   let wordCss = {
-    "grid-column": "2 / 3",
+    "grid-column": `${c} / 3`,
     "grid-row": `${row}`,
   };
 
