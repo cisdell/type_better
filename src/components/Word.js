@@ -2,29 +2,34 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Word() {
-  const word = "Andrew";
-  const [counter, setCounter] = useState(5);
-  const [left, setLeft] = useState(1);
-  const [right, setRight] = useState(1);
-  const [gridPos, setGridPos] = useState(1);
+export default function Word({word, word_data}) {
 
-  const updateCounter = () => {
-    if (counter === 15) {
-      return;
+  console.log(word)
+  console.log(word_data)
+  const {r, c, s, a} = word_data
+  const [row, setRow] = useState(r);
+  const [col, setCol] = useState(c);
+  // const [gridPos, setGridPos] = useState(1);
+  const [alive, setAlive] = useState(a)
+  const speed = s
+
+  const updateRow = () => {
+    if (row === 15) {
+      setAlive(false);
+      return
     }
-    setTimeout(() => setCounter(counter + 1), 500);
+    setTimeout(() => setRow(row + 1), speed);
   };
 
   let wordCss = {
     "grid-column": "2 / 3",
-    "grid-row": `${counter}`,
+    "grid-row": `${row}`,
   };
 
   useEffect(() => {
-    console.log("Current Counter is:" + counter);
-    updateCounter();
-  }, [counter]);
+    console.log("Current row count is:" + row);
+    updateRow();
+  }, [row]);
 
-  return <div style={wordCss}>{word}</div>;
+  return (alive && <div style={wordCss}>{word}</div>);
 }
