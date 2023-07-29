@@ -3,12 +3,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 export default function Word({ word, word_data }) {
-  console.log(word);
-  console.log(word_data);
+  // console.log(word);
+  // console.log(word_data);
   const { s, a } = word_data;
   const [row, setRow] = useState(1);
-  //function to generate a random number among 1,2,3
+
+  //function to tha generate a num 1,2,3
   const generateNum = () => Math.floor(Math.random() * 3)+1;
+
   const [col, setCol] = useState(generateNum()) //generate a
   // const [gridPos, setGridPos] = useState(1);
   const [alive, setAlive] = useState(a);
@@ -28,8 +30,8 @@ export default function Word({ word, word_data }) {
   };
 
   useEffect(() => {
-    console.log("Current row count is:" + row);
-    console.log("Current col count is:" + col);
+    // console.log("Current row count is:" + row);
+    // console.log("Current col count is:" + col);
     updateRow();
   }, [row]);
 

@@ -29,20 +29,39 @@ export default function Gaming({ gameOn }) {
   const [displayedWords, setDisplayedWords] = useState([]);
   const [wordsCount, setWordsCount] = useState(0);
   const [speed, setSpeed] = useState(1000)
-  const [submissionAttempt, SetSubmissionAttempt] = useState('')
+  const [tryValue, setTryValue] = useState('')
   // const []
 
   // data for the Word component
   let word_data = {s: speed, a: true };
 
-  //function to
+  //function to push the words and update the number of words pushed
   const wordPush = () => {
     console.log("wordPush");
     let new_word = wordbank.shift();
     setWordsCount(wordsCount+1)
     setDisplayedWords([...displayedWords, new_word]);
+    console.log(displayedWords)
   };
-  console.log(submissionAttempt)
+  // console.log(submissionAttempt)
+
+  const submitTry = (e) => {
+    e.preventDefault();
+    setTryValue('')
+    const wordInBank = () => {
+      if (displayedWords.indexOf(tryValue) !== -1) {
+        return true
+      }
+      return false
+    }
+
+    if (wordInBank()) {
+      console.log('IN THE BANK')
+    }
+    else console.log('NOT IN THE BANK')
+
+
+  }
 
 
   // useEffect(() => {
@@ -61,13 +80,13 @@ export default function Gaming({ gameOn }) {
         </div>
         <span className="ground">------GROUND------</span>
         <div className="attempt-box">
-        <form>
+        <form onSubmit={submitTry}>
         <label>
             <span>Type in the words before they hit the ground!</span>
             <input
               required
               type="text"
-              onChange={(e)=> SetSubmissionAttempt(e.target.value)}
+              onChange={(e)=> setTryValue(e.target.value)}
             />
         </label>
         </form>
