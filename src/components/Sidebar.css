@@ -8,6 +8,10 @@
   justify-content: flex-start;
   align-items: center;
 }
+.Brick-stacks {
+  position: absolute;
+  bottom: 0
+}
 /* .Sidebar .Sidebar-content {
   position: center;
 

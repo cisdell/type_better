@@ -1,0 +1,22 @@
+.gaming-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 4
+}
+.words-display {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  /* grid-auto-rows: minmax(50px, auto); */
+  grid-template-rows: repeat(20, 2fr);
+}
+.ground {
+  align-self: flex-end;
+}
+.bricks-layout {
+  flex:1;
+  align-self: flex-end;
+  /* position: absolute;
+  bottom: 0;
+  width: 100%; */
+}
