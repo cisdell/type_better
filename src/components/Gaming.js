@@ -7,7 +7,6 @@ import { useEffect } from "react";
 // import Lifeblocks from '../../components/Lifeblocks';
 //imported these guys on the side bar
 import Word from "./Word";
-import TestForm from "./TestForm";
 import Brick from "./Brick"
 
 //styles
@@ -17,17 +16,8 @@ import "./Gaming.css";
 import data from "../data.json";
 let wordbank = data.words
 
-// let wordbank = [
-//   "andrew",
-//   "endure",
-//   "troop",
-//   "floor",
-//   "throw",
-//   'abc','def','afdf','sdfsdfsdf'
-// ];
 
-
-export default function Gaming({ gameOn }) {
+export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
   const [wordsCount, setWordsCount] = useState(0);
@@ -40,31 +30,32 @@ export default function Gaming({ gameOn }) {
   let word_data = {s: speed, a: true };
 
   //function to push the words and update the number of words pushed
-  const wordPush = async() => {
+  const wordPush = () => {
     console.log("wordPush");
     let new_word = wordbank.shift();
-    await setWordsCount(wordsCount+1)
-    await setDisplayedWords([...displayedWords, new_word]);
+    setWordsCount(wordsCount+1)
+    setDisplayedWords([...displayedWords, new_word]);
     console.log(displayedWords)
+
   };
   // console.log(submissionAttempt)
 
   //function to remove words from the word bank
-  const removeWord = async (wordToRemove) => {
+  const removeWord = (wordToRemove) => {
     if (!displayedWords.includes(wordToRemove)) {
       return
     }
     let i = displayedWords.indexOf(wordToRemove)
-    await displayedWords.splice(i,1)
-    await setDisplayedWords(displayedWords)
+    displayedWords.splice(i,1)
+    setDisplayedWords(displayedWords)
   }
 
 
   //text input submit .
-  const submitTry = async (e) => {
+  const submitTry = (e) => {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
-      await removeWord(tryValue)
+      removeWord(tryValue)
     }
     setTryValue('') // should clear the field after hitting return
     console.log(displayedWords)
@@ -74,9 +65,9 @@ export default function Gaming({ gameOn }) {
   //reduceLife
   const reduceLife = async() => {
     console.log(life)
-    if (life.length === 0) {
+    if (life.length === 1) {
       console.log('game over')
-      return
+      setGameOn(false)
     }
     else {
       life.pop()
@@ -84,17 +75,17 @@ export default function Gaming({ gameOn }) {
     }
   }
 
-  // useEffect(() => {
-  //   // Call the wordPush function every 1 second
-  //   const interval = setInterval(() => {
-  //     wordPush();
-  //   }, 3000);
+  useEffect(() => {
+    // Call the wordPush function every 1 second
+    const interval = setInterval(() => {
+      wordPush();
+    }, 3000);
 
-  //   return () => {
-  //     // Cleanup the interval on component unmount
-  //     clearInterval(interval);
-  //   };
-  // }, [wordPush]); // Empty dependency array ensures the useEffect runs only once on component mount
+    return () => {
+      // Cleanup the interval on component unmount
+      clearInterval(interval);
+    };
+  }, [wordPush]); // Empty dependency array ensures the useEffect runs only once on component mount
 
 
   return (
