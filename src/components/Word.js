@@ -10,15 +10,15 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
 
   //function to tha generate a num 1,2,3
   const generateNum = () => Math.floor(Math.random() * 3) + 1;
-  const [col, setCol] = useState(generateNum()); //generate a
+  const [col, setCol] = useState(generateNum()); //generate a num
   const [alive, setAlive] = useState(a);
   const speed = s;
 
-  const updateRow = async() => {
+  const updateRow = () => {
     if (row === 15) {
-      await setAlive(false);
-      await removeWord(word)
-      await reduceLife()
+      setAlive(false);
+      removeWord(word)
+      reduceLife()
       return;
     }
     setTimeout(() => setRow(row + 1), speed);
