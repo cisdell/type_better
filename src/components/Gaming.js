@@ -73,23 +73,22 @@ export default function Gaming({ gameOn }) {
 
   //reduceLife
   const reduceLife = async() => {
+    console.log(life)
     if (life.length === 0) {
       console.log('game over')
+      return
     }
-    life.unshift()
-    setLife(life)
+    else {
+      life.pop()
+      setLife(life)
+    }
   }
-
-  // useEffect(()=> {
-  //   wordPush()
-  //   // setTimeout(wordPush(), 1000)
-  // }, [])
 
   // useEffect(() => {
   //   // Call the wordPush function every 1 second
   //   const interval = setInterval(() => {
   //     wordPush();
-  //   }, 4000);
+  //   }, 3000);
 
   //   return () => {
   //     // Cleanup the interval on component unmount
