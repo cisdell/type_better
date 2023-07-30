@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Word({ word, word_data, removeWord }) {
+export default function Word({ word, word_data, removeWord, reduceLife }) {
   // console.log(word);
   // console.log(word_data);
   const { s, a } = word_data;
@@ -18,6 +18,7 @@ export default function Word({ word, word_data, removeWord }) {
     if (row === 15) {
       await setAlive(false);
       await removeWord(word)
+      await reduceLife()
       return;
     }
     setTimeout(() => setRow(row + 1), speed);

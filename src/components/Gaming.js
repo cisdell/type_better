@@ -59,7 +59,8 @@ export default function Gaming({ gameOn }) {
     await setDisplayedWords(displayedWords)
   }
 
-  //text input sumit.
+
+  //text input submit .
   const submitTry = async (e) => {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
@@ -67,22 +68,49 @@ export default function Gaming({ gameOn }) {
     }
     setTryValue('') // should clear the field after hitting return
     console.log(displayedWords)
+    console.log(life)
   }
+
+  //reduceLife
+  const reduceLife = async() => {
+    if (life < 1) {
+      console.log('game over')
+    }
+    setLife(life-1)
+  }
+
+  // useEffect(()=> {
+  //   wordPush()
+  //   // setTimeout(wordPush(), 1000)
+  // }, [])
+
+  // useEffect(() => {
+  //   // Call the wordPush function every 1 second
+  //   const interval = setInterval(() => {
+  //     wordPush();
+  //   }, 4000);
+
+  //   return () => {
+  //     // Cleanup the interval on component unmount
+  //     clearInterval(interval);
+  //   };
+  // }, [wordPush]); // Empty dependency array ensures the useEffect runs only once on component mount
+
 
   return (
     <>
     <div className="gaming-container">
       <div>
-      <button onClick={wordPush}>MakeWord</button>
-        <span>
+      {/* <button onClick={wordPush}>MakeWord</button> */}
+        {/* <span>
         {displayedWords.map(wo =>(<span>{wo}</span>))}
-        </span>
+        </span> */}
         <p>hello! Start playing your game!</p>
 
         <div className="words-display">
           {/* <Word word={word}/> */}
           {displayedWords.map((w) => (
-            <Word word={w} word_data={word_data} removeWord={removeWord} />
+            <Word word={w} word_data={word_data} removeWord={removeWord} reduceLife={reduceLife}/>
           ))}
         </div>
         <span className="ground">------------------------------------GROUND-----------------------------------------</span>
