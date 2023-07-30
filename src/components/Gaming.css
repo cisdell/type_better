@@ -7,8 +7,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  /* grid-auto-rows: minmax(50px, auto); */
   grid-template-rows: repeat(20, 2fr);
+}
+.attempt-box {
+  justify-content: center;
 }
 .ground {
   align-self: flex-end;
@@ -16,7 +18,4 @@
 .bricks-layout {
   flex:1;
   align-self: flex-end;
-  /* position: absolute;
-  bottom: 0;
-  width: 100%; */
 }

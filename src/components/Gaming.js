@@ -88,11 +88,12 @@ export default function Gaming({ gameOn }) {
         <span className="ground">------------------------------------GROUND-----------------------------------------</span>
         <div className="attempt-box">
         <form onSubmit={submitTry}>
-        <label>
+        <label className="attempt-box">
             <span>Type in the words before they hit the ground!</span>
             <input
               required
               type="text"
+              size="40"
               value={tryValue}
               onChange={(e)=> setTryValue(e.target.value)}
             />
