@@ -21,17 +21,19 @@ function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
 //shuffle words
-shuffleArray(data)
+shuffleArray(wordbank)
 
 
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(1000);
+  const [speed, setSpeed] = useState(1500);
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
+  const [clearedCount, setClearedCount] = useState(0);
 
   // data for the Word component speed, alive
   let word_data = { s: speed, a: true };
@@ -65,6 +67,7 @@ export default function Gaming({ setGameOn }) {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
       removeWord(tryValue);
+      setClearedCount(clearedCount+1)
     }
     setTryValue(""); // should clear the field after hitting return
   };
@@ -94,7 +97,7 @@ export default function Gaming({ setGameOn }) {
     // Call the wordPush function every 3 second
     const interval = setInterval(() => {
       wordPush();
-    }, 1000);
+    }, 1500);
 
     return () => {
       // Cleanup the interval on component unmount
@@ -107,6 +110,11 @@ export default function Gaming({ setGameOn }) {
       <div className="gaming-container">
         <div>
           <p>hello! Start playing your game!</p>
+          <div className="game-stats">
+            <span>Word count:{wordsCount}</span>
+            <span>Cleared Count:{clearedCount}</span>
+            <span>Current Speed:{speed}</span>
+          </div>
           <div className="words-display">
             {displayedWords.map((w) => (
               <Word
@@ -123,7 +131,7 @@ export default function Gaming({ setGameOn }) {
           <div className="attempt-box">
             <form onSubmit={submitTry}>
               <label className="attempt-box">
-                <span>Type in the words before they hit the ground!</span>
+                <span>Type in the words before they hit the ground! Current Speed {speed}</span>
                 <input
                   required
                   type="text"
