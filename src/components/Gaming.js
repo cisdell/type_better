@@ -33,7 +33,7 @@ export default function Gaming({ gameOn }) {
   const [wordsCount, setWordsCount] = useState(0);
   const [speed, setSpeed] = useState(1000)
   const [tryValue, setTryValue] = useState('')
-  const [life, setLife] = useState(5)
+  const [life, setLife] = useState([0,0,0,0,0])
   // const []
 
   // data for the Word component
@@ -73,10 +73,11 @@ export default function Gaming({ gameOn }) {
 
   //reduceLife
   const reduceLife = async() => {
-    if (life < 1) {
+    if (life.length === 0) {
       console.log('game over')
     }
-    setLife(life-1)
+    life.unshift()
+    setLife(life)
   }
 
   // useEffect(()=> {
@@ -130,9 +131,7 @@ export default function Gaming({ gameOn }) {
         </div>
     </div>
     <div className="bricks-layout">
-      <Brick/>
-      <Brick/>
-      <Brick/>
+      {life.map((l)=>(<Brick/>))}
     </div>
       </div>
 
