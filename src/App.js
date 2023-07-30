@@ -9,7 +9,7 @@ import Sidebar from "./components/Sidebar";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Landing from "./pages/landing/Landing";
-import Gaming from "./pages/gaming/Gaming"
+import Gaming from "./components/Gaming"
 
 //functions
 import { useGuest } from "./hooks/useLogin";
@@ -18,7 +18,7 @@ import "./App.css";
 
 function App() {
   const { user, authIsReady } = useAuthContext();
-  const [gameOn, setGameOn] = useState(true);
+  const [gameOn, setGameOn] = useState(false);
 
   console.log(gameOn)
 
@@ -36,7 +36,8 @@ function App() {
             {!user && <Route path="/logout" element={<Login />} />}
           </Routes>
           {!gameOn && user && <Landing gameOn={gameOn}/>}
-          {gameOn && <Gaming gameOn={gameOn}/>}
+          {!gameOn&&(<button onClick={()=>{setGameOn(true)}}>Turn Game ON</button>)}
+          {gameOn && <Gaming setGameOn={setGameOn}/>}
         </div>
       </BrowserRouter>
     </div>

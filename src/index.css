@@ -34,8 +34,10 @@ nav a {
 }
 
 label, label span {
-  display: block;
+  display: flex;
   margin: 6px 0;
+  flex-direction: column;
+  align-items: center;
 }
 input {
   padding: 6px;

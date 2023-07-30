@@ -15,7 +15,11 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
   const speed = s;
 
   const updateRow = () => {
-    if ((row === 15)&&(word.length>0)) {
+    //case when the word is cleared
+    if (word.length===0) {
+      setAlive(false)
+    }
+    else if (row === 15) {
       setAlive(false);
       removeWord(word)
       reduceLife()

@@ -4,8 +4,6 @@ import { useEffect } from "react";
 
 //components
 // import Timer from '../../components/Timer';
-// import Lifeblocks from '../../components/Lifeblocks';
-//imported these guys on the side bar
 import Word from "./Word";
 import Brick from "./Brick";
 
@@ -14,7 +12,18 @@ import "./Gaming.css";
 
 //data
 import data from "../data.json";
+
 let wordbank = data.words.map((word) => word.toLowerCase());
+//
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+//shuffle words
+shuffleArray(data)
+
 
 export default function Gaming({ setGameOn }) {
   //states
@@ -23,11 +32,8 @@ export default function Gaming({ setGameOn }) {
   const [speed, setSpeed] = useState(1000);
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
-  const [wordBankIndex, setWordBankIndex] = useState(0);
 
-  // const []
-
-  // data for the Word component
+  // data for the Word component speed, alive
   let word_data = { s: speed, a: true };
 
   //function to push the words and update the number of words pushed
@@ -35,6 +41,7 @@ export default function Gaming({ setGameOn }) {
     console.log("wordPush");
     let new_word = wordbank[wordsCount];
     setWordsCount(wordsCount + 1);
+    console.log("current_word_count: "+ wordsCount)
     const new_list = [...displayedWords, new_word];
     setDisplayedWords(new_list);
     console.log(displayedWords);
@@ -53,15 +60,13 @@ export default function Gaming({ setGameOn }) {
     setDisplayedWords(displayedWords);
   };
 
-  //text input submit .
+  //text input submit
   const submitTry = (e) => {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
       removeWord(tryValue);
     }
     setTryValue(""); // should clear the field after hitting return
-    console.log(displayedWords);
-    console.log(life);
   };
 
   //reduceLife
@@ -75,6 +80,15 @@ export default function Gaming({ setGameOn }) {
       setLife(life);
     }
   };
+  useEffect(() => {
+    if (speed < 100) {
+      return
+    }
+    else if (wordsCount % 20 === 0) {
+      // const newSpeed = speed-200
+      setSpeed(speed-200)
+    }
+  }, [wordsCount])
 
   useEffect(() => {
     // Call the wordPush function every 3 second
@@ -92,14 +106,8 @@ export default function Gaming({ setGameOn }) {
     <>
       <div className="gaming-container">
         <div>
-          {/* <button onClick={wordPush}>MakeWord</button> */}
-          {/* <span>
-        {displayedWords.map(wo =>(<span>{wo}</span>))}
-        </span> */}
           <p>hello! Start playing your game!</p>
-
           <div className="words-display">
-            {/* <Word word={word}/> */}
             {displayedWords.map((w) => (
               <Word
                 word={w}
