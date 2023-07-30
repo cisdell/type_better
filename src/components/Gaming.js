@@ -34,12 +34,11 @@ export default function Gaming({ setGameOn }) {
   const wordPush = () => {
     console.log("wordPush");
     let new_word = wordbank[wordsCount];
-    // setWordBankIndex(wordBankIndex+1)
     setWordsCount(wordsCount + 1);
-    setDisplayedWords([...displayedWords, new_word]);
+    const new_list = [...displayedWords, new_word];
+    setDisplayedWords(new_list);
     console.log(displayedWords);
   };
-  // console.log(submissionAttempt)
 
   //function to remove words from the word bank
   const removeWord = (wordToRemove) => {
@@ -47,8 +46,10 @@ export default function Gaming({ setGameOn }) {
       return;
     }
     let i = displayedWords.indexOf(wordToRemove);
-    const updatedWords = displayedWords.filter((word)=> word!== wordToRemove)
-    displayedWords.splice(i, 1);
+    // const updatedWords = displayedWords.filter((word)=> word!== wordToRemove)
+    // displayedWords.splice(i, 1);
+    //ran into issue because shifting the length of the array cause rendering issue on the html
+    displayedWords[i] = "";
     setDisplayedWords(displayedWords);
   };
 
@@ -64,8 +65,8 @@ export default function Gaming({ setGameOn }) {
   };
 
   //reduceLife
-  const reduceLife = async () => {
-    console.log(life);
+  const reduceLife = () => {
+    // console.log(life);
     if (life.length === 1) {
       console.log("game over");
       setGameOn(false);

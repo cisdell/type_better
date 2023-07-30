@@ -15,7 +15,7 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
   const speed = s;
 
   const updateRow = () => {
-    if (row === 15) {
+    if ((row === 15)&&(word.length>0)) {
       setAlive(false);
       removeWord(word)
       reduceLife()
