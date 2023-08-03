@@ -1,19 +1,16 @@
-.navbar {
-  width: 100%;
-  padding: 30px 0;
-  box-sizing: border-box;
-  margin-bottom: 80px;
-  background-color: lightblue;
+nav {
+  border: 1px solid red;
 }
-.navbar ul {
+nav ul {
   display: flex;
   margin: 0 auto;
-  align-items: center;
+  flex-direction: row;
   justify-content: flex-end;
 }
-.navbar li {
-  margin: 25px;
+nav li {
+  margin: 1rem;
+  list-style: none;
 }
-.navbar a {
-  color: #333;
+nav .guestmode li:hover{
+  cursor: pointer;
 }

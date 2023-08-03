@@ -5,7 +5,7 @@ import { useLogout } from "../hooks/useLogout";
 import { useLogin } from "../hooks/useLogin";
 
 //styles and images
-import "./Navbar.css";
+// import "./Navbar.css";
 
 export default function Navbar() {
   const { logout, isPending } = useLogout();
@@ -18,7 +18,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <ul>
         <>
           {!user && (
@@ -29,7 +29,7 @@ export default function Navbar() {
               <li>
                 <Link to="login">Login</Link>
               </li>
-              <li>
+              <li className="guestmode">
                 <a onClick={guestLogin}>Guest Mode</a>
               </li>
             </>
@@ -43,6 +43,6 @@ export default function Navbar() {
           )}
         </>
       </ul>
-    </div>
+    </nav>
   );
 }

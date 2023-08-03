@@ -23,7 +23,7 @@ function App() {
   console.log(gameOn)
 
   return (
-    <div className="App">
+    <div className="wrapper">
       <BrowserRouter>
         {user && <Sidebar />}
         <div className="container">
@@ -35,8 +35,8 @@ function App() {
             {/* <Route path="/guestmode" element={useGuest} /> */}
             {!user && <Route path="/logout" element={<Login />} />}
           </Routes>
-          {!gameOn && user && <Landing gameOn={gameOn}/>}
-          {!gameOn&&(<button onClick={()=>{setGameOn(true)}}>Turn Game ON</button>)}
+          {!gameOn && user && <Landing setGameOn={setGameOn}/>}
+          {/* {!gameOn&&(<button onClick={()=>{setGameOn(true)}}>Turn Game ON</button>)} */}
           {gameOn && <Gaming setGameOn={setGameOn}/>}
         </div>
       </BrowserRouter>

@@ -8,7 +8,7 @@ import Word from "./Word";
 import Brick from "./Brick";
 
 //styles
-import "./Gaming.css";
+// import "./Gaming.css";
 
 //data
 import data from "../data.json";
@@ -21,7 +21,6 @@ function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
-
 //shuffle words
 shuffleArray(wordbank)
 
@@ -30,10 +29,11 @@ export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(1500);
+  const [speed, setSpeed] = useState(2000);
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0);
+  const [pause, setPause] = useState(false);
 
   // data for the Word component speed, alive
   let word_data = { s: speed, a: true };

@@ -1,51 +1,126 @@
-body {
-  margin: 40px 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #f2f2f2;
+:root {
+  --base-size: 1rem;
+  --scale: 1.25;
+  --h1: calc(var(--h2) * var(--scale));
+  --h2: calc(var(--h3) * var(--scale));
+  --h3: calc(var(--h4) * var(--scale));
+  --h4: calc(var(--h5) * var(--scale));
+  --h5: calc(var(--h6) * var(--scale));
+  --h6: var(--base-size);
+
+  /* colors */
+  --lime: #a4ffa2;
+  --magenta: #f47dda;
+  --magenta50: #f47dda80;
+  --white: #ffffff;
+  --tan: #cec5b4;
+  --teal: #2e6d81;
+  --cyan: #7de6f4;
+  --black: #050d14;
+  --shadow: #050d1480;
+  /* fonts */
+  --ibm-font: "IBM Plex Mono";
 }
 
-/* .App {
-  max-width: 640px;
-  margin: 0 auto;
-} */
-nav {
-  background: #772eff;
-  padding: 10px 20px;
-  color: #fff;
-  display: flex;
-  align-items: center;
+html {
+  box-sizing: border-box;
 }
-nav h1 {
+body {
+  /* border: 1px solid white; */
+  font-family: var(--ibm-font);
+  color: var(--white);
+  background-color: var(--black);
+}
+/*
+p {
+  margin-bottom: 1rem;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 3rem 0 1.38rem;
+  font-weight: 300;
+  line-height: 1.3;
+}
+main {
+  margin-bottom: 4rem;
+  border: 1px green;
+}
+
+button {
+  background: white;
+  color: var(--black);
+  border: 0;
+  padding: 5px 8px;
+  font-family: var(--ibm-font);
+}
+figure {
   margin: 0;
-  margin-right: auto;
+  padding: 0;
+}
+footer {
+  margin-top: 5rem;
+  text-transform: uppercase;
+}
+nav {
+  border: 1px solid red;
+}
+nav ul {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 nav li {
-  display: inline-block;
-  margin: 0 0 0 16px;
+  margin: 1rem;
+  list-style: none;
+}
+nav .guestmode li:hover{
   cursor: pointer;
 }
-nav a {
-  color: #fff;
-  text-decoration: none;
-}
-
-label, label span {
+.user-form {
   display: flex;
-  margin: 6px 0;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
-input {
-  padding: 6px;
-  margin-bottom: 12px;
+.user-form label {
+  padding: 1rem;
 }
-button {
-  background: blue;
-  color: #fff;
-  border: 0;
-  padding: 6px 8px;
+.gaming-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 4
 }
+.words-display {
+  width: 70%;
+  height: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-template-rows: repeat(17, 2fr);
+
+}
+.attempt-box {
+  justify-content: center;
+}
+.ground {
+  align-self: flex-end;
+}
+.bricks-layout {
+  flex:1;
+  align-self: flex-end;
+}
+.landing {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing p {
+  padding: 2rem 10rem;
+} */
