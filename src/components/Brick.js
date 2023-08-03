@@ -1,5 +1,5 @@
 //style
-import "./Brick.css";
+// import "./Brick.css";
 
 export default function Brick() {
   return (
