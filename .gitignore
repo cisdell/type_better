@@ -24,3 +24,5 @@ yarn-error.log*
 
 #firebase
 src/firebase/FirebaseConfig.js
+
+/src/assets/piano.mov
