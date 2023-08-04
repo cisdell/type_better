@@ -15,14 +15,14 @@ import data from "../data.json";
 
 let wordbank = data.words.map((word) => word.toLowerCase());
 //
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-//shuffle words
-shuffleArray(wordbank)
+// function shuffleArray(array) {
+//   for (let i = array.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [array[i], array[j]] = [array[j], array[i]];
+//   }
+// }
+// //shuffle words
+// shuffleArray(wordbank)
 
 
 export default function Gaming({ setGameOn }) {
@@ -97,7 +97,7 @@ export default function Gaming({ setGameOn }) {
     // Call the wordPush function every 3 second
     const interval = setInterval(() => {
       wordPush();
-    }, 1500);
+    }, 3000);
 
     return () => {
       // Cleanup the interval on component unmount
@@ -126,7 +126,7 @@ export default function Gaming({ setGameOn }) {
             ))}
           </div>
           <span className="ground">
-            ------------------------------------GROUND-----------------------------------------
+          🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥
           </span>
           <div className="attempt-box">
             <form onSubmit={submitTry}>

@@ -19,7 +19,7 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
     if (word.length===0) {
       setAlive(false)
     }
-    else if (row === 15) {
+    else if (row === 17) {
       setAlive(false);
       removeWord(word)
       reduceLife()
