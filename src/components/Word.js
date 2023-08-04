@@ -24,6 +24,7 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
       removeWord(word)
       reduceLife()
       return;
+      console.log('test')
     }
     setTimeout(() => setRow(row + 1), speed);
   };
