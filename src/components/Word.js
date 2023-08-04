@@ -26,6 +26,7 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
       return;
     }
     setTimeout(() => setRow(row + 1), speed);
+    console.log('hello')
   };
 
   let wordCss = {
