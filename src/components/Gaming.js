@@ -24,7 +24,6 @@ let wordbank = data.words.map((word) => word.toLowerCase());
 // //shuffle words
 // shuffleArray(wordbank)
 
-
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
@@ -33,20 +32,20 @@ export default function Gaming({ setGameOn }) {
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0);
-  const [pause, setPause] = useState(false);
-
+  const [paused, setPaused] = useState(false);
   // data for the Word component speed, alive
   let word_data = { s: speed, a: true };
 
   //function to push the words and update the number of words pushed
   const wordPush = () => {
-    console.log("wordPush");
-    let new_word = wordbank[wordsCount];
-    setWordsCount(wordsCount + 1);
-    console.log("current_word_count: "+ wordsCount)
-    const new_list = [...displayedWords, new_word];
-    setDisplayedWords(new_list);
-    console.log(displayedWords);
+    if (!paused) {
+      let new_word = wordbank[wordsCount];
+      setWordsCount(wordsCount + 1);
+      console.log("current_word_count: " + wordsCount);
+      const new_list = [...displayedWords, new_word];
+      setDisplayedWords(new_list);
+      console.log(displayedWords);
+    }
   };
 
   //function to remove words from the word bank
@@ -67,7 +66,7 @@ export default function Gaming({ setGameOn }) {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
       removeWord(tryValue);
-      setClearedCount(clearedCount+1)
+      setClearedCount(clearedCount + 1);
     }
     setTryValue(""); // should clear the field after hitting return
   };
@@ -83,21 +82,28 @@ export default function Gaming({ setGameOn }) {
       setLife(life);
     }
   };
+
+  //pause function
+  const pauseGame = () => {
+    setPaused((paused) => !paused);
+    console.log(paused);
+  };
+
+  //if speed is less than .1 second then don't decrement it.
   useEffect(() => {
     if (speed < 100) {
-      return
-    }
-    else if (wordsCount % 20 === 0) {
+      return;
+    } else if (wordsCount % 20 === 0) {
       // const newSpeed = speed-200
-      setSpeed(speed-200)
+      setSpeed(speed - 200);
     }
-  }, [wordsCount])
+  }, [wordsCount]);
 
   useEffect(() => {
-    // Call the wordPush function every 3 second
+    // Call the wordPush function every 2 second
     const interval = setInterval(() => {
       wordPush();
-    }, 3000);
+    }, 2000);
 
     return () => {
       // Cleanup the interval on component unmount
@@ -114,6 +120,7 @@ export default function Gaming({ setGameOn }) {
             <span>Word count:{wordsCount}</span>
             <span>Cleared Count:{clearedCount}</span>
             <span>Current Speed:{speed}</span>
+            <button onClick={pauseGame}>PAUSE GAME</button>
           </div>
           <div className="words-display">
             {displayedWords.map((w) => (
@@ -122,16 +129,20 @@ export default function Gaming({ setGameOn }) {
                 word_data={word_data}
                 removeWord={removeWord}
                 reduceLife={reduceLife}
+                paused={paused}
               />
             ))}
           </div>
           <span className="ground">
-          🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥
+            🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥 🔥
           </span>
           <div className="attempt-box">
             <form onSubmit={submitTry}>
               <label className="attempt-box">
-                <span>Type in the words before they hit the ground! Current Speed {speed}</span>
+                <span>
+                  Type in the words before they hit the ground! Current Speed{" "}
+                  {speed}
+                </span>
                 <input
                   required
                   type="text"

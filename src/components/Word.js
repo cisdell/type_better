@@ -2,7 +2,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Word({ word, word_data, removeWord, reduceLife }) {
+export default function Word({
+  word,
+  word_data,
+  removeWord,
+  reduceLife,
+  paused,
+}) {
   // console.log(word);
   // console.log(word_data);
   const { s, a } = word_data;
@@ -16,17 +22,18 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
 
   const updateRow = () => {
     //case when the word is cleared
-    if (word.length===0) {
-      setAlive(false)
-    }
-    else if (row === 17) {
-      setAlive(false);
-      removeWord(word)
-      reduceLife()
+    if (paused) {
       return;
+    } else if (word.length === 0) {
+      setAlive(false);
+    } else if (row === 17) {
+      setAlive(false);
+      removeWord(word);
+      reduceLife();
+      return;
+      console.log("test");
     }
     setTimeout(() => setRow(row + 1), speed);
-    console.log('hello')
   };
 
   let wordCss = {
@@ -36,7 +43,7 @@ export default function Word({ word, word_data, removeWord, reduceLife }) {
 
   useEffect(() => {
     updateRow();
-  }, [row]);
+  }, [row, paused]);
 
   return alive && <div style={wordCss}>{word}</div>;
 }
