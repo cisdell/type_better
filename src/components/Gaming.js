@@ -84,10 +84,12 @@ export default function Gaming({ setGameOn }) {
   };
 
   //pause function
-  const pauseGame = () => {
-    setPaused((paused) => !paused);
-    console.log(paused);
+  const pauseGame = (e) => {
+    if (e.key === ' ')
+      setPaused((paused) => !paused);
+      console.log(paused);
   };
+
 
   //if speed is less than .1 second then don't decrement it.
   useEffect(() => {
@@ -110,6 +112,16 @@ export default function Gaming({ setGameOn }) {
       clearInterval(interval);
     };
   }, [wordPush]); // Empty dependency array ensures the useEffect runs only once on component mount
+
+  //pause function
+  useEffect(() => {
+    // Add event listener for space bar key press
+    window.addEventListener("keydown", pauseGame);
+    return () => {
+      // Remove the event listener on component unmount
+      window.removeEventListener("keydown", pauseGame);
+    }
+  })
 
   return (
     <>
