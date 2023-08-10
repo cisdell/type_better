@@ -21,6 +21,7 @@ import "./App.css";
 function App() {
   const { user, authIsReady } = useAuthContext();
   const [gameOn, setGameOn] = useState(false);
+  const [soundOn, setSoundOn] = useState(false);
 
   console.log(gameOn)
 

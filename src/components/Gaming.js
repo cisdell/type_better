@@ -26,6 +26,7 @@ let wordbank = data.words.map((word) => word.toLowerCase());
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
+  const [elapsedTime, setElapsedTime] = useState(0)
   const [wordsCount, setWordsCount] = useState(0);
   const [speed, setSpeed] = useState(2000);
   const [tryValue, setTryValue] = useState("");
