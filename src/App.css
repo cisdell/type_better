@@ -93,15 +93,8 @@ nav .guestmode li:hover{
 .brick-out {
   justify-content: center;
 }
-.brick {
-  width: 5rem;
-  height: 3rem;
-  background-color: #ffcd00; /* LEGO yellow */
-  border: 1px solid #cc9900; /* Border color */
-  position: relative; /* Required for studs */
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Shadow */
-  margin-bottom: 10px; /* Space between stacked blocks */
-}
+/* .brick {
+} */
 
 .stud {
   position: absolute;

@@ -8,6 +8,7 @@ import Brick from "./Brick";
 
 //styles
 // import "./Gaming.css";
+//assets
 
 //data
 import data from "../data.json";
@@ -174,6 +175,7 @@ export default function Gaming({ setGameOn }) {
         <div className="bricks-layout">
           {life.map((l) => (
             <Brick />
+
           ))}
         </div>
       </div>

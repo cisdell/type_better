@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useState } from "react";
 
+
 //components
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -10,6 +11,7 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Landing from "./pages/landing/Landing";
 import Gaming from "./components/Gaming"
+
 
 //functions
 import { useGuest } from "./hooks/useLogin";
