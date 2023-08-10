@@ -90,6 +90,10 @@ export default function Gaming({ setGameOn }) {
       setPaused((paused) => !paused);
       // console.log(paused);
   };
+  const setChange = (e) => {
+    const newValue = e.target.value.replace(/\s/g, '');
+    setTryValue(newValue)
+  }
 
 
   //if speed is less than .1 second then don't decrement it.
@@ -133,7 +137,7 @@ export default function Gaming({ setGameOn }) {
             <span>Word count:{wordsCount}</span>
             <span>Cleared Count:{clearedCount}</span>
             <span>Current Speed:{speed}</span>
-            <button onClick={pauseGame}>PAUSE GAME</button>
+            {/* <button onClick={pauseGame}>PAUSE GAME</button> */}
           </div>
           <div className="words-display">
             {displayedWords.map((w) => (
@@ -161,7 +165,7 @@ export default function Gaming({ setGameOn }) {
                   type="text"
                   size="40"
                   value={tryValue}
-                  onChange={(e) => setTryValue(e.target.value)}
+                  onChange={setChange}
                 />
               </label>
             </form>

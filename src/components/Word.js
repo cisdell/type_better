@@ -31,7 +31,7 @@ export default function Word({
       removeWord(word);
       reduceLife();
       return;
-      console.log("test");
+      console.log("row updated");
     }
     setTimeout(() => setRow(row + 1), speed);
   };
