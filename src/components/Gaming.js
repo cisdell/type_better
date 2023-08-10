@@ -1,6 +1,5 @@
 //libs
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 //components
 // import Timer from '../../components/Timer';
@@ -49,7 +48,7 @@ export default function Gaming({ setGameOn }) {
   };
 
   //function to remove words from the word bank
-  const removeWord = (wordToRemove) => {
+  const removeWord = useCallback((wordToRemove) => {
     if (!displayedWords.includes(wordToRemove)) {
       return;
     }
@@ -58,8 +57,9 @@ export default function Gaming({ setGameOn }) {
     // displayedWords.splice(i, 1);
     //ran into issue because shifting the length of the array cause rendering issue on the html
     displayedWords[i] = "";
+    console.log('removed word :'+ wordToRemove)
     setDisplayedWords(displayedWords);
-  };
+  }, [displayedWords])
 
   //text input submit
   const submitTry = (e) => {
@@ -72,7 +72,7 @@ export default function Gaming({ setGameOn }) {
   };
 
   //reduceLife
-  const reduceLife = () => {
+  const reduceLife = useCallback(() => {
     // console.log(life);
     if (life.length === 1) {
       console.log("game over");
@@ -81,13 +81,14 @@ export default function Gaming({ setGameOn }) {
       life.pop();
       setLife(life);
     }
-  };
+  }, [life])
 
   //pause function
   const pauseGame = (e) => {
+    // e.preventDefault();
     if (e.key === ' ')
       setPaused((paused) => !paused);
-      console.log(paused);
+      // console.log(paused);
   };
 
 
@@ -121,7 +122,7 @@ export default function Gaming({ setGameOn }) {
       // Remove the event listener on component unmount
       window.removeEventListener("keydown", pauseGame);
     }
-  })
+  }, []);
 
   return (
     <>
