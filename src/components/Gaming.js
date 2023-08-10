@@ -6,8 +6,10 @@ import { useState, useEffect, useCallback } from "react";
 import Word from "./Word";
 import Brick from "./Brick";
 import Ending from "./Ending";
-//assets
 
+//assets
+import clearedSound from '../assets/cleared.mp3'
+import gameOverSound from '../assets/gameOverSound.mp3'
 
 //data
 import data from "../data.json";
@@ -67,6 +69,7 @@ export default function Gaming({ setGameOn }) {
   const submitTry = (e) => {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
+      new Audio(clearedSound).play()
       removeWord(tryValue);
       setClearedCount(clearedCount + 1);
     }
@@ -78,6 +81,7 @@ export default function Gaming({ setGameOn }) {
     // console.log(life);
     if (life.length === 1) {
       console.log("game over");
+      new Audio(gameOverSound).play()
       setPaused(true);
       setGameOver(true);
       // setGameOn(false);

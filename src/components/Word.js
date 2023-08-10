@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
+//assets
+// import cleared from '../assets/cleared.mp3'
+
 export default function Word({
   word,
   word_data,
