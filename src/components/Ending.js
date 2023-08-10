@@ -1,7 +1,14 @@
-import React from 'react'
+import gameover from '../assets/gameover.png'
 
-export default function Ending() {
+export default function Ending({setGameOn, setGameOver, setPaused}) {
+  const closeOut = () => {
+    setGameOn(false)
+    setGameOver(false)
+  }
   return (
-    <div>Ending</div>
+    <div className="gameover">
+      <img src={gameover} alt="gameover" width='500' height='500'/>
+      <button onClick={closeOut}>I'm Done</button>
+    </div>
   )
 }

@@ -16,8 +16,7 @@ export default function Sidebar() {
       WELCOME!
       <Profile />
       <div className="sidebar-content">
-        <div className="brick-stacks">
-        </div>
+
       </div>
     </div>
   );

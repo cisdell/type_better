@@ -5,10 +5,9 @@ import { useState, useEffect, useCallback } from "react";
 // import Timer from '../../components/Timer';
 import Word from "./Word";
 import Brick from "./Brick";
-
-//styles
-// import "./Gaming.css";
+import Ending from "./Ending";
 //assets
+
 
 //data
 import data from "../data.json";
@@ -33,6 +32,7 @@ export default function Gaming({ setGameOn }) {
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   // data for the Word component speed, alive
   let word_data = { s: speed, a: true };
 
@@ -77,7 +77,9 @@ export default function Gaming({ setGameOn }) {
     // console.log(life);
     if (life.length === 1) {
       console.log("game over");
-      setGameOn(false);
+      setPaused(true);
+      setGameOver(true);
+      // setGameOn(false);
     } else {
       life.pop();
       setLife(life);
@@ -129,16 +131,21 @@ export default function Gaming({ setGameOn }) {
     }
   }, []);
 
+  //game over function
+  useEffect(() => {
+
+  }, [])
+
   return (
     <>
       <div className="gaming-container">
+        {gameOver&&<Ending setPaused={setPaused} setGameOver={setGameOver} setGameOn={setGameOn}/>}
         <div>
-          <p>hello! Start playing your game!</p>
+          <p>To pause the game, press the spacebar.</p>
           <div className="game-stats">
             <span>Word count:{wordsCount}</span>
             <span>Cleared Count:{clearedCount}</span>
             <span>Current Speed:{speed}</span>
-            {/* <button onClick={pauseGame}>PAUSE GAME</button> */}
           </div>
           <div className="words-display">
             {displayedWords.map((w) => (
@@ -175,7 +182,6 @@ export default function Gaming({ setGameOn }) {
         <div className="bricks-layout">
           {life.map((l) => (
             <Brick />
-
           ))}
         </div>
       </div>
