@@ -8,8 +8,15 @@ import Brick from "./Brick";
 import Ending from "./Ending";
 
 //assets
-import clearedSound from '../assets/cleared.mp3'
-import gameOverSound from '../assets/gameOverSound.mp3'
+import clearedSound from '../assets/SoundEffects/cleared.mp3'
+import gameOverSound from '../assets/SoundEffects/gameOverSound.mp3'
+import music1 from '../assets/GameMusic/music1.mp3'
+import music2 from '../assets/GameMusic/music2.mp3'
+import music3 from '../assets/GameMusic/music3.mp3'
+import music4 from '../assets/GameMusic/music4.mp3'
+import music5 from '../assets/GameMusic/music5.mp3'
+import music6 from '../assets/GameMusic/music6.mp3'
+
 
 //data
 import data from "../data.json";
@@ -25,6 +32,9 @@ let wordbank = data.words.map((word) => word.toLowerCase());
 // //shuffle words
 // shuffleArray(wordbank)
 
+//picks a random game sound
+let gameSound = [music1,music2,music3,music4,music5,music6][Math.floor(Math.random()*6)];
+const GameMusic = new Audio(gameSound);
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
@@ -36,18 +46,20 @@ export default function Gaming({ setGameOn }) {
   const [clearedCount, setClearedCount] = useState(0);
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [audioPlaying, setAudioPlaying] = useState(false)
   // data for the Word component speed, alive
   let word_data = { s: speed, a: true };
+  // const GameMusic = new Audio(gameSound);
 
   //function to push the words and update the number of words pushed
   const wordPush = () => {
     if (!paused) {
       let new_word = wordbank[wordsCount];
       setWordsCount(wordsCount + 1);
-      console.log("current_word_count: " + wordsCount);
+      // console.log("current_word_count: " + wordsCount);
       const new_list = [...displayedWords, new_word];
       setDisplayedWords(new_list);
-      console.log(displayedWords);
+      // console.log(displayedWords);
     }
   };
 
@@ -61,7 +73,7 @@ export default function Gaming({ setGameOn }) {
     // displayedWords.splice(i, 1);
     //ran into issue because shifting the length of the array cause rendering issue on the html
     displayedWords[i] = "";
-    console.log('removed word :'+ wordToRemove)
+    // console.log('removed word :'+ wordToRemove)
     setDisplayedWords(displayedWords);
   }, [displayedWords])
 
@@ -78,13 +90,11 @@ export default function Gaming({ setGameOn }) {
 
   //reduceLife
   const reduceLife = useCallback(() => {
-    // console.log(life);
     if (life.length === 1) {
       console.log("game over");
       new Audio(gameOverSound).play()
       setPaused(true);
       setGameOver(true);
-      // setGameOn(false);
     } else {
       life.pop();
       setLife(life);
@@ -93,16 +103,13 @@ export default function Gaming({ setGameOn }) {
 
   //pause function
   const pauseGame = (e) => {
-    // e.preventDefault();
     if (e.key === ' ')
       setPaused((paused) => !paused);
-      // console.log(paused);
   };
   const setChange = (e) => {
     const newValue = e.target.value.replace(/\s/g, '');
     setTryValue(newValue)
   }
-
 
   //if speed is less than .1 second then don't decrement it.
   useEffect(() => {
@@ -138,8 +145,17 @@ export default function Gaming({ setGameOn }) {
 
   //game over function
   useEffect(() => {
+    if (!paused) {
+      GameMusic.play().catch(err => {
+        console.log("Game Music Err: " + err)
+      })
+    } else {
+      // setAudioPlaying(false)
+      GameMusic.pause();
+    }
+    console.log(paused)
+  }, [paused])
 
-  }, [])
 
   return (
     <>
@@ -173,6 +189,7 @@ export default function Gaming({ setGameOn }) {
                   Type in the words before they hit the ground! Current Speed{" "}
                   {speed}
                 </span>
+                <br/>
                 <input
                   required
                   type="text"

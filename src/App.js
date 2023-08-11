@@ -11,7 +11,7 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Landing from "./pages/landing/Landing";
 import Gaming from "./components/Gaming"
-
+import Footer from "./components/Footer";
 
 //functions
 import { useGuest } from "./hooks/useLogin";
@@ -38,9 +38,10 @@ function App() {
             {/* <Route path="/guestmode" element={useGuest} /> */}
             {!user && <Route path="/logout" element={<Login />} />}
           </Routes>
-          {!gameOn && user && <Landing setGameOn={setGameOn}/>}
+          {!gameOn && user && <Landing setGameOn={setGameOn} soundOn={soundOn}/>}
           {/* {!gameOn&&(<button onClick={()=>{setGameOn(true)}}>Turn Game ON</button>)} */}
-          {gameOn && <Gaming setGameOn={setGameOn}/>}
+          {gameOn && <Gaming setGameOn={setGameOn} soundOn={soundOn}/>}
+          <Footer/>
         </div>
       </BrowserRouter>
     </div>
