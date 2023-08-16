@@ -28,14 +28,20 @@ app = Flask(__name__)
 #     return {"id": room_id, "message": f"Room {name} created."}, 201
 
 
-@app.post("/updateStat")
+@app.route("/stat", methods=["POST"])
 def update_stat():
     data = request.get_json()
     #received data from the client
 
 
-@app.route("/getStat")
+@app.route("/stat", methods=["get"])
 def get_stat():
-    with connection:
 
-    pass
+    with connection:
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(USER_STAT)
+                user_stat = cursor.fetchone()[0]
+            return jsonify(user_stat)
+        except Exception as e:
+            print(e)
