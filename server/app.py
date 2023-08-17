@@ -4,18 +4,21 @@ from dotenv import load_dotenv
 
 from datetime import datetime, timezone
 import os
+
+#maybe use ORM later
 # from flask_sqlalchemy import SQLAlchemy
 
 #Queries
-# CREATE_ROOMS_TABLE = "CREATE TABLE IF NOT EXISTS rooms (id SERIAL PRIMARY KEY, name TEXT);"
+
 
 # GET_USER_STAT_QUERY = '''SELECT login_time, MAX(clear_count) as max_clear_count FROM USAGE WHERE email = (%s);
 # '''
 
 GET_USER_STAT_QUERY = '''
-SELECT email, last_login as "last_login [timestamp]"
-FROM USERS
-WHERE email = (%s);
+SELECT u.email, us.clear_count, us.login_time
+FROM USERS u FULL JOIN USERS_STAT us
+ON u.email = us.email
+WHERE us.clear_count = (SELECT MAX(t2.clear_count) FROM USERS_STAT t2 WHERE t2.email = (%s));
 '''
 
 # "INSERT INTO rooms (name) VALUES (%s) RETURNING id;"
@@ -61,7 +64,8 @@ def user_stat():
                 if user_stat:
                     response_data = {
                         "email": user_stat[0],
-                        "timeStamp": user_stat[1]
+                        "max": user_stat[1],
+                        "time_occured": user_stat[2]
                     }
                     return jsonify(response_data), 200
                 else:
