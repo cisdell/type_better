@@ -1,6 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import psycopg2
 from dotenv import load_dotenv
+
 from datetime import datetime, timezone
 import os
 # from flask_sqlalchemy import SQLAlchemy
@@ -12,8 +13,9 @@ import os
 # '''
 
 GET_USER_STAT_QUERY = '''
-SELECT login_time, clear_count FROM usage
-    WHERE email =
+SELECT email, last_login as "last_login [timestamp]"
+FROM USERS
+WHERE email = (%s);
 '''
 
 # "INSERT INTO rooms (name) VALUES (%s) RETURNING id;"
@@ -49,15 +51,22 @@ def update_stat():
 def user_stat():
     data = request.get_json()
     email = data['email']
-    print('email:  '+ email)
+    # print('email:  '+ email)
     with connection:
         try:
             with connection.cursor() as cursor:
                 cursor.execute(GET_USER_STAT_QUERY, (email,))
-                print(cursor.fetchone())
-                user_stat = cursor.fetchone()[0]
-            return jsonify(user_stat)
+                user_stat = cursor.fetchone()
+
+                if user_stat:
+                    response_data = {
+                        "email": user_stat[0],
+                        "timeStamp": user_stat[1]
+                    }
+                    return jsonify(response_data), 200
+                else:
+                    return "User not found", 404
+
         except Exception as e:
             print(e)
-
-    # return user_stat
+            return "An error occurred", 500
