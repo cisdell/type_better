@@ -7,13 +7,24 @@ import os
 
 #Queries
 # CREATE_ROOMS_TABLE = "CREATE TABLE IF NOT EXISTS rooms (id SERIAL PRIMARY KEY, name TEXT);"
-# INSERT_ROOM_RETURN_ID = "INSERT INTO rooms (name) VALUES (%s) RETURNING id;"
+
+# GET_USER_STAT_QUERY = '''SELECT login_time, MAX(clear_count) as max_clear_count FROM USAGE WHERE email = (%s);
+# '''
+
+GET_USER_STAT_QUERY = '''
+SELECT login_time, clear_count FROM usage
+    WHERE email =
+'''
+
+# "INSERT INTO rooms (name) VALUES (%s) RETURNING id;"
+
 
 
 load_dotenv()
 
 db_uri = os.getenv('DB_URI')
 connection = psycopg2.connect(db_uri)
+
 app = Flask(__name__)
 
 # @app.post("/api/room")
@@ -35,13 +46,18 @@ def update_stat():
 
 
 @app.route("/stat", methods=["get"])
-def get_stat():
-
+def user_stat():
+    data = request.get_json()
+    email = data['email']
+    print('email:  '+ email)
     with connection:
         try:
             with connection.cursor() as cursor:
-                cursor.execute(USER_STAT)
+                cursor.execute(GET_USER_STAT_QUERY, (email,))
+                print(cursor.fetchone())
                 user_stat = cursor.fetchone()[0]
             return jsonify(user_stat)
         except Exception as e:
             print(e)
+
+    # return user_stat
