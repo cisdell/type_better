@@ -7,15 +7,20 @@ import { useLogin } from "../hooks/useLogin";
 //styles and images
 // import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({setGameOn, setSoundOn, soundOn}) {
   const { logout, isPending } = useLogout();
   const { user } = useAuthContext();
   const { login } = useLogin();
   const [guestEmail, guestPW] = ["guest@gmail.com", "guest1234"];
 
+  console.log(soundOn)
   const guestLogin = () => {
     login(guestEmail, guestPW);
   };
+  const handleClick = () => {
+    setGameOn(false)
+    logout()
+  }
 
   return (
     <nav className="navbar">
@@ -36,7 +41,10 @@ export default function Navbar() {
           )}
           {user && (
             <li>
-              <button className="btn" onClick={logout}>
+              <button className="btn" onClick={()=> setSoundOn(!soundOn)}>
+                SoundOn/Off
+              </button>
+              <button className="btn" onClick={handleClick}>
                 Logout
               </button>
             </li>

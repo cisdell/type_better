@@ -6,7 +6,7 @@ import { useState } from "react";
 
 //components
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
+// import Sidebar from "./components/Sidebar";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Landing from "./pages/landing/Landing";
@@ -28,9 +28,8 @@ function App() {
   return (
     <div className="wrapper">
       <BrowserRouter>
-        {user && <Sidebar />}
         <div className="container">
-          <Navbar />
+          <Navbar setGameOn={setGameOn} setSoundOn={setSoundOn} soundOn={soundOn}/>
           {/* <Signup /> */}
           <Routes>
             <Route path="/signup" element={!user ? <Signup /> : null} />
