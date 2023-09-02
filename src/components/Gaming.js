@@ -1,5 +1,7 @@
 //libs
 import { useState, useEffect, useCallback } from "react";
+// import axios from 'axios';
+import axios from '../hooks/updateLogs.js'
 
 //components
 // import Timer from '../../components/Timer';
@@ -53,7 +55,6 @@ export default function Gaming({ setGameOn }) {
 
   let word_data = { s: speed, a: true };
 
-
   //function to push the words and update the number of words pushed
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const wordPush = () => {
@@ -92,7 +93,7 @@ export default function Gaming({ setGameOn }) {
     setTryValue(""); // should clear the field after hitting return
   };
 
-  const gameOver = () => {
+  const endGame = () => {
     new Audio(gameOverSound).play()
     const currentDatetime = new Date();
     const diffInSeconds = Math.floor((currentDatetime - startDatetime)/1000)
@@ -102,7 +103,22 @@ export default function Gaming({ setGameOn }) {
     setGameOver(true);
   }
 
-  const sendData = () => {}
+  const sendData = () => {
+    const dt = new Date()
+    const dataToSend = {
+      "email": "cisdell@gmail.com",
+      "login_time": dt,
+      "time_spent": 600000,
+      "clear_count": 50000
+    }
+    axios.post('/stat', dataToSend)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+  }
 
   const getData = () => {}
 
@@ -207,6 +223,7 @@ export default function Gaming({ setGameOn }) {
                 <span>
                   Type in the words before they hit the ground! Current Speed{" "}
                   {speed}
+                  <button onClick={sendData}>sendData</button>
                 </span>
                 <br/>
                 <input
