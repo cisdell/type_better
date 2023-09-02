@@ -15,7 +15,7 @@ import music2 from '../assets/GameMusic/music2.mp3'
 import music3 from '../assets/GameMusic/music3.mp3'
 import music4 from '../assets/GameMusic/music4.mp3'
 import music5 from '../assets/GameMusic/music5.mp3'
-import music6 from '../assets/GameMusic/music6.mp3'
+// import music6 from '../assets/GameMusic/music6.mp3'
 
 
 //data
@@ -33,25 +33,29 @@ let wordbank = data.words.map((word) => word.toLowerCase());
 // shuffleArray(wordbank)
 
 //picks a random game sound
-let gameSound = [music1,music2,music3,music4,music5,music6][Math.floor(Math.random()*6)];
+let gameSound = [music1,music2,music3,music4,music5][Math.floor(Math.random()*5)];
 const GameMusic = new Audio(gameSound);
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
-  const [elapsedTime, setElapsedTime] = useState(0)
+  const [elapsedTime, setElapsedTime] = useState(0) // userdata
+  const [startDatetime, setStartDatetime] = useState(new Date())
   const [wordsCount, setWordsCount] = useState(0);
   const [speed, setSpeed] = useState(2000);
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
-  const [clearedCount, setClearedCount] = useState(0);
+  const [clearedCount, setClearedCount] = useState(0); //userdata
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false)
   // data for the Word component speed, alive
+
+
   let word_data = { s: speed, a: true };
-  // const GameMusic = new Audio(gameSound);
+
 
   //function to push the words and update the number of words pushed
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const wordPush = () => {
     if (!paused) {
       let new_word = wordbank[wordsCount];
@@ -88,13 +92,27 @@ export default function Gaming({ setGameOn }) {
     setTryValue(""); // should clear the field after hitting return
   };
 
+  const gameOver = () => {
+    new Audio(gameOverSound).play()
+    const currentDatetime = new Date();
+    const diffInSeconds = Math.floor((currentDatetime - startDatetime)/1000)
+    setElapsedTime(setElapsedTime)
+
+    setPaused(true);
+    setGameOver(true);
+  }
+
+  const sendData = () => {}
+
+  const getData = () => {}
+
   //reduceLife
   const reduceLife = useCallback(() => {
     if (life.length === 1) {
       console.log("game over");
-      new Audio(gameOverSound).play()
-      setPaused(true);
-      setGameOver(true);
+      // new Audio(gameOverSound).play()
+      // setPaused(true);
+      // setGameOver(true);
     } else {
       life.pop();
       setLife(life);
@@ -106,6 +124,7 @@ export default function Gaming({ setGameOn }) {
     if (e.key === ' ')
       setPaused((paused) => !paused);
   };
+  //typing value change
   const setChange = (e) => {
     const newValue = e.target.value.replace(/\s/g, '');
     setTryValue(newValue)
@@ -153,8 +172,8 @@ export default function Gaming({ setGameOn }) {
       // setAudioPlaying(false)
       GameMusic.pause();
     }
-    console.log(paused)
   }, [paused])
+
 
 
   return (
