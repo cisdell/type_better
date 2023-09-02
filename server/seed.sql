@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS USERS_STAT (
   email VARCHAR(50) NOT NULL,
   login_time TIMESTAMP NOT NULL,
   time_spent INT,
-  clear_count INT,
-  FOREIGN KEY (email) REFERENCES USERS (email)
+  clear_count INT
+  -- FOREIGN KEY (email) REFERENCES USERS (email)
 );
 
 INSERT INTO USERS (email, last_login, total_time, highest_clear)
