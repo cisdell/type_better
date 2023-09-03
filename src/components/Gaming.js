@@ -1,7 +1,8 @@
 //libs
 import { useState, useEffect, useCallback } from "react";
 // import axios from 'axios';
-import axios from '../hooks/updateLogs.js'
+import axios from "../hooks/updateLogs";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //components
 // import Timer from '../../components/Timer';
@@ -10,15 +11,14 @@ import Brick from "./Brick";
 import Ending from "./Ending";
 
 //assets
-import clearedSound from '../assets/SoundEffects/cleared.mp3'
-import gameOverSound from '../assets/SoundEffects/gameOverSound.mp3'
-import music1 from '../assets/GameMusic/music1.mp3'
-import music2 from '../assets/GameMusic/music2.mp3'
-import music3 from '../assets/GameMusic/music3.mp3'
-import music4 from '../assets/GameMusic/music4.mp3'
-import music5 from '../assets/GameMusic/music5.mp3'
+import clearedSound from "../assets/SoundEffects/cleared.mp3";
+import gameOverSound from "../assets/SoundEffects/gameOverSound.mp3";
+import music1 from "../assets/GameMusic/music1.mp3";
+import music2 from "../assets/GameMusic/music2.mp3";
+import music3 from "../assets/GameMusic/music3.mp3";
+import music4 from "../assets/GameMusic/music4.mp3";
+import music5 from "../assets/GameMusic/music5.mp3";
 // import music6 from '../assets/GameMusic/music6.mp3'
-
 
 //data
 import data from "../data.json";
@@ -35,13 +35,15 @@ let wordbank = data.words.map((word) => word.toLowerCase());
 // shuffleArray(wordbank)
 
 //picks a random game sound
-let gameSound = [music1,music2,music3,music4,music5][Math.floor(Math.random()*5)];
+let gameSound = [music1, music2, music3, music4, music5][
+  Math.floor(Math.random() * 5)
+];
 const GameMusic = new Audio(gameSound);
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
-  const [elapsedTime, setElapsedTime] = useState(0) // userdata
-  const [startDatetime, setStartDatetime] = useState(new Date())
+  const [elapsedTime, setElapsedTime] = useState(0); // userdata
+  const [startDatetime, setStartDatetime] = useState(new Date());
   const [wordsCount, setWordsCount] = useState(0);
   const [speed, setSpeed] = useState(2000);
   const [tryValue, setTryValue] = useState("");
@@ -49,9 +51,13 @@ export default function Gaming({ setGameOn }) {
   const [clearedCount, setClearedCount] = useState(0); //userdata
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [audioPlaying, setAudioPlaying] = useState(false)
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const { user } = useAuthContext();
+
   // data for the Word component speed, alive
 
+  // const context = useAuthContext();
+  // console.log(user)
 
   let word_data = { s: speed, a: true };
 
@@ -69,24 +75,27 @@ export default function Gaming({ setGameOn }) {
   };
 
   //function to remove words from the word bank
-  const removeWord = useCallback((wordToRemove) => {
-    if (!displayedWords.includes(wordToRemove)) {
-      return;
-    }
-    let i = displayedWords.indexOf(wordToRemove);
-    // const updatedWords = displayedWords.filter((word)=> word!== wordToRemove)
-    // displayedWords.splice(i, 1);
-    //ran into issue because shifting the length of the array cause rendering issue on the html
-    displayedWords[i] = "";
-    // console.log('removed word :'+ wordToRemove)
-    setDisplayedWords(displayedWords);
-  }, [displayedWords])
+  const removeWord = useCallback(
+    (wordToRemove) => {
+      if (!displayedWords.includes(wordToRemove)) {
+        return;
+      }
+      let i = displayedWords.indexOf(wordToRemove);
+      // const updatedWords = displayedWords.filter((word)=> word!== wordToRemove)
+      // displayedWords.splice(i, 1);
+      //ran into issue because shifting the length of the array cause rendering issue on the html
+      displayedWords[i] = "";
+      // console.log('removed word :'+ wordToRemove)
+      setDisplayedWords(displayedWords);
+    },
+    [displayedWords]
+  );
 
   //text input submit
   const submitTry = (e) => {
     e.preventDefault();
     if (displayedWords.includes(tryValue)) {
-      new Audio(clearedSound).play()
+      new Audio(clearedSound).play();
       removeWord(tryValue);
       setClearedCount(clearedCount + 1);
     }
@@ -94,22 +103,22 @@ export default function Gaming({ setGameOn }) {
   };
 
   const endGame = () => {
-    new Audio(gameOverSound).play()
+    new Audio(gameOverSound).play();
     const currentDatetime = new Date();
-    const diffInSeconds = Math.floor((currentDatetime - startDatetime)/1000)
-    setElapsedTime(setElapsedTime)
+    const diffInSeconds = Math.floor((currentDatetime - startDatetime) / 1000);
+    setElapsedTime(diffInSeconds);
 
     setPaused(true);
     setGameOver(true);
-  }
+  };
 
   const sendData = () => {
     const dt = new Date()
     const dataToSend = {
-      "email": "cisdell@gmail.com",
+      "email": user.email,
       "login_time": dt,
-      "time_spent": 600000,
-      "clear_count": 50000
+      "time_spent": elapsedTime,
+      "clear_count": clearedCount
     }
     axios.post('/stat', dataToSend)
     .then(response => {
@@ -120,7 +129,7 @@ export default function Gaming({ setGameOn }) {
     })
   }
 
-  const getData = () => {}
+  const getData = () => {};
 
   //reduceLife
   const reduceLife = useCallback(() => {
@@ -133,18 +142,17 @@ export default function Gaming({ setGameOn }) {
       life.pop();
       setLife(life);
     }
-  }, [life])
+  }, [life]);
 
   //pause function
   const pauseGame = (e) => {
-    if (e.key === ' ')
-      setPaused((paused) => !paused);
+    if (e.key === " ") setPaused((paused) => !paused);
   };
   //typing value change
   const setChange = (e) => {
-    const newValue = e.target.value.replace(/\s/g, '');
-    setTryValue(newValue)
-  }
+    const newValue = e.target.value.replace(/\s/g, "");
+    setTryValue(newValue);
+  };
 
   //if speed is less than .1 second then don't decrement it.
   useEffect(() => {
@@ -175,27 +183,31 @@ export default function Gaming({ setGameOn }) {
     return () => {
       // Remove the event listener on component unmount
       window.removeEventListener("keydown", pauseGame);
-    }
+    };
   }, []);
 
   //game over function
   useEffect(() => {
     if (!paused) {
-      GameMusic.play().catch(err => {
-        console.log("Game Music Err: " + err)
-      })
+      GameMusic.play().catch((err) => {
+        console.log("Game Music Err: " + err);
+      });
     } else {
       // setAudioPlaying(false)
       GameMusic.pause();
     }
-  }, [paused])
-
-
+  }, [paused]);
 
   return (
     <>
       <div className="gaming-container">
-        {gameOver&&<Ending setPaused={setPaused} setGameOver={setGameOver} setGameOn={setGameOn}/>}
+        {gameOver && (
+          <Ending
+            setPaused={setPaused}
+            setGameOver={setGameOver}
+            setGameOn={setGameOn}
+          />
+        )}
         <div>
           <p>To pause the game, press the spacebar.</p>
           <div className="game-stats">
@@ -223,9 +235,9 @@ export default function Gaming({ setGameOn }) {
                 <span>
                   Type in the words before they hit the ground! Current Speed{" "}
                   {speed}
-                  <button onClick={sendData}>sendData</button>
+                  {/* <button onClick={sendData}>sendData</button> */}
                 </span>
-                <br/>
+                <br />
                 <input
                   required
                   type="text"
