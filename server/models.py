@@ -9,6 +9,12 @@ class UserStatRequest(BaseModel):
 
 class UserStatResponse(BaseModel):
     email: str
-    max: int
+    max_cleared: int
     time_occured: datetime
+
+class LeaderboardResponse(BaseModel):
+    email: str
+    clear_count: int
+    login_time: datetime
+
 
