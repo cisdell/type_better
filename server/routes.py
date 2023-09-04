@@ -88,7 +88,7 @@ def get_leaderboard():
                             clear_count=item[1],
                             login_time=item[2],
                         )
-                        response_data.append(each_data.dict())
+                        response_data.append(each_data.model_dump())
                     print(response_data)
                     return jsonify(response_data), 200
 

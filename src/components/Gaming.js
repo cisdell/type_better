@@ -9,6 +9,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import Word from "./Word";
 import Brick from "./Brick";
 import Ending from "./Ending";
+import Results from "./Results"
 
 //assets
 import clearedSound from "../assets/SoundEffects/cleared.mp3";
@@ -22,23 +23,13 @@ import music5 from "../assets/GameMusic/music5.mp3";
 
 //data
 import data from "../data.json";
-
 let wordbank = data.words.map((word) => word.toLowerCase());
-//
-// function shuffleArray(array) {
-//   for (let i = array.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [array[i], array[j]] = [array[j], array[i]];
-//   }
-// }
-// //shuffle words
-// shuffleArray(wordbank)
 
 //picks a random game sound
-let gameSound = [music1, music2, music3, music4, music5][
-  Math.floor(Math.random() * 5)
-];
-const GameMusic = new Audio(gameSound);
+// let gameSound = [music1, music2, music3, music4, music5][
+//   Math.floor(Math.random() * 5)
+// ];
+// const GameMusic = new Audio(gameSound);
 export default function Gaming({ setGameOn }) {
   //states
   const [displayedWords, setDisplayedWords] = useState([]);
@@ -51,13 +42,12 @@ export default function Gaming({ setGameOn }) {
   const [clearedCount, setClearedCount] = useState(0); //userdata
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [resultPage, setResultPage] = useState(false)
+  const [leaderboardData, setLeaderboardData] = useState([])
   const [audioPlaying, setAudioPlaying] = useState(false);
+
+
   const { user } = useAuthContext();
-
-  // data for the Word component speed, alive
-
-  // const context = useAuthContext();
-  // console.log(user)
 
   let word_data = { s: speed, a: true };
 
@@ -110,9 +100,11 @@ export default function Gaming({ setGameOn }) {
 
     setPaused(true);
     setGameOver(true);
+    // sendData();
+
   };
 
-  const sendData = () => {
+  async function sendData() {
     const dt = new Date()
     const dataToSend = {
       "email": user.email,
@@ -129,15 +121,26 @@ export default function Gaming({ setGameOn }) {
     })
   }
 
-  const getData = () => {};
+  const getLeaderboardData = () => {
+    axios.get('/leaderboard')
+    .then(res => {
+      setLeaderboardData(res.data)
+      // console.log(res)
+      console.log(leaderboardData)
+    })
+  };
 
-  //reduceLife
+  //reduceLife and when all legos are gone close the game.
   const reduceLife = useCallback(() => {
     if (life.length === 1) {
       console.log("game over");
-      // new Audio(gameOverSound).play()
-      // setPaused(true);
-      // setGameOver(true);
+      new Audio(gameOverSound).play()
+      setPaused(true);
+      setGameOver(true);
+      sendData();
+
+
+
     } else {
       life.pop();
       setLife(life);
@@ -187,16 +190,16 @@ export default function Gaming({ setGameOn }) {
   }, []);
 
   //game over function
-  useEffect(() => {
-    if (!paused) {
-      GameMusic.play().catch((err) => {
-        console.log("Game Music Err: " + err);
-      });
-    } else {
-      // setAudioPlaying(false)
-      GameMusic.pause();
-    }
-  }, [paused]);
+  // useEffect(() => {
+  //   if (!paused) {
+  //     GameMusic.play().catch((err) => {
+  //       console.log("Game Music Err: " + err);
+  //     });
+  //   } else {
+  //     // setAudioPlaying(false)
+  //     GameMusic.pause();
+  //   }
+  // }, [paused]);
 
   return (
     <>
@@ -206,6 +209,15 @@ export default function Gaming({ setGameOn }) {
             setPaused={setPaused}
             setGameOver={setGameOver}
             setGameOn={setGameOn}
+            setResultPage={setResultPage}
+          />
+        )}
+        {resultPage && (
+          <Results
+            setPaused={setPaused}
+            setGameOver={setGameOver}
+            setGameOn={setGameOn}
+            setResultPage={setResultPage}
           />
         )}
         <div>
@@ -235,7 +247,7 @@ export default function Gaming({ setGameOn }) {
                 <span>
                   Type in the words before they hit the ground! Current Speed{" "}
                   {speed}
-                  {/* <button onClick={sendData}>sendData</button> */}
+                  <button onClick={getLeaderboardData}>LeaderBoard Data</button>
                 </span>
                 <br />
                 <input

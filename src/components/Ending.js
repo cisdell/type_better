@@ -1,14 +1,14 @@
-import gameover from '../assets/gameover.png'
+import gameover from "../assets/gameover.png";
 
-export default function Ending({setGameOn, setGameOver, setPaused}) {
+export default function Ending({setGameOver, setResultPage}) {
   const closeOut = () => {
-    setGameOn(false)
-    setGameOver(false)
-  }
+    setGameOver(false);
+    setResultPage(true)
+  };
   return (
     <div className="gameover">
-      <img src={gameover} alt="gameover" width='500' height='500'/>
-      <button onClick={closeOut}>I'm Done</button>
+      <img src={gameover} alt="gameover" width="500" height="500" />
+      <button onClick={closeOut}>Show me the Result</button>
     </div>
-  )
+  );
 }
