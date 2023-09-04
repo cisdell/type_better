@@ -36,7 +36,7 @@ export default function Gaming({ setGameOn }) {
   const [elapsedTime, setElapsedTime] = useState(0); // userdata
   const [startDatetime, setStartDatetime] = useState(new Date());
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(2000);
+  const [speed, setSpeed] = useState(50); // testing for 5000
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0); //userdata
@@ -97,10 +97,11 @@ export default function Gaming({ setGameOn }) {
     const currentDatetime = new Date();
     const diffInSeconds = Math.floor((currentDatetime - startDatetime) / 1000);
     setElapsedTime(diffInSeconds);
-
+    console.log("getLeaderboardData running")
+    getLeaderboardData()
     setPaused(true);
     setGameOver(true);
-    // sendData();
+    sendData();
 
   };
 
@@ -124,22 +125,17 @@ export default function Gaming({ setGameOn }) {
   const getLeaderboardData = () => {
     axios.get('/leaderboard')
     .then(res => {
+      console.log('leaderboard get request sent')
       setLeaderboardData(res.data)
-      // console.log(res)
       console.log(leaderboardData)
     })
   };
 
   //reduceLife and when all legos are gone close the game.
   const reduceLife = useCallback(() => {
-    if (life.length === 1) {
+    if (life.length === 0) {
       console.log("game over");
-      new Audio(gameOverSound).play()
-      setPaused(true);
-      setGameOver(true);
-      sendData();
-
-
+      endGame();
 
     } else {
       life.pop();
@@ -189,18 +185,6 @@ export default function Gaming({ setGameOn }) {
     };
   }, []);
 
-  //game over function
-  // useEffect(() => {
-  //   if (!paused) {
-  //     GameMusic.play().catch((err) => {
-  //       console.log("Game Music Err: " + err);
-  //     });
-  //   } else {
-  //     // setAudioPlaying(false)
-  //     GameMusic.pause();
-  //   }
-  // }, [paused]);
-
   return (
     <>
       <div className="gaming-container">
@@ -214,10 +198,10 @@ export default function Gaming({ setGameOn }) {
         )}
         {resultPage && (
           <Results
-            setPaused={setPaused}
             setGameOver={setGameOver}
             setGameOn={setGameOn}
             setResultPage={setResultPage}
+            leaderboardData={leaderboardData}
           />
         )}
         <div>

@@ -24,7 +24,7 @@ def update_stat():
         try:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    queries.INSERT_SESSION_DATA,
+                    queries.INSERT_SESSION_DATA_QUERY,
                     (
                         newdata.email,
                         newdata.login_time,
@@ -90,6 +90,8 @@ def get_leaderboard():
                         )
                         response_data.append(each_data.model_dump())
                     print(response_data)
+                    # response_data.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')  # Allow requests from this origin
+
                     return jsonify(response_data), 200
 
         except Exception as e:
