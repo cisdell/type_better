@@ -31,4 +31,4 @@ INSERT INTO USERS_STAT (email, login_time, time_spent, clear_count)
 VALUES
   ('cisdell@gmail.com', '2023-08-16 21:19:07.908258', 10,10 ),
   ('cisdell@icloud.com', '2023-08-19 21:19:12.882379', 0,0 ),
-  ('cisdell@gmail.com', '2023-08-17 21:19:07.908258', 15,25 )
+  ('cisdell@gmail.com', '2023-08-17 21:19:07.908258', 15,25 );
