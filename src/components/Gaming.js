@@ -36,7 +36,7 @@ export default function Gaming({ setGameOn }) {
   const [elapsedTime, setElapsedTime] = useState(0); // userdata
   const [startDatetime, setStartDatetime] = useState(new Date());
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(50); // testing for 5000
+  const [speed, setSpeed] = useState(2000); // testing for 5000
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0); //userdata
@@ -231,7 +231,7 @@ export default function Gaming({ setGameOn }) {
                 <span>
                   Type in the words before they hit the ground! Current Speed{" "}
                   {speed}
-                  <button onClick={getLeaderboardData}>LeaderBoard Data</button>
+                  {/* <button onClick={getLeaderboardData}>LeaderBoard Data</button> */}
                 </span>
                 <br />
                 <input
