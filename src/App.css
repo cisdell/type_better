@@ -28,7 +28,12 @@
 }
 .footer {
   height: 50px;
+  display: flex;
+  justify-content: center;
 }
+/* .footer > * {
+
+} */
 .instructions {
   display: flex;
   flex-direction: column;
