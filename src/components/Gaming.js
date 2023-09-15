@@ -9,7 +9,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import Word from "./Word";
 import Brick from "./Brick";
 import Ending from "./Ending";
-import Results from "./Results"
+import Results from "./Results";
 
 //assets
 import clearedSound from "../assets/SoundEffects/cleared.mp3";
@@ -36,16 +36,15 @@ export default function Gaming({ setGameOn }) {
   const [elapsedTime, setElapsedTime] = useState(0); // userdata
   const [startDatetime, setStartDatetime] = useState(new Date());
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(2000); // testing for 5000
+  const [speed, setSpeed] = useState(500); // testing for 5000
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
-  const [clearedCount, setClearedCount] = useState(0); //userdata
+  const [clearedCount, setClearedCount] = useState(100); //userdata
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [resultPage, setResultPage] = useState(false)
-  const [leaderboardData, setLeaderboardData] = useState([])
+  const [resultPage, setResultPage] = useState(false);
+  const [leaderboardData, setLeaderboardData] = useState([]);
   const [audioPlaying, setAudioPlaying] = useState(false);
-
 
   const { user } = useAuthContext();
 
@@ -87,61 +86,74 @@ export default function Gaming({ setGameOn }) {
     if (displayedWords.includes(tryValue)) {
       new Audio(clearedSound).play();
       removeWord(tryValue);
-      setClearedCount(clearedCount + 1);
+      const updatedClearCount = clearedCount + 1;
+      setClearedCount(updatedClearCount);
     }
     setTryValue(""); // should clear the field after hitting return
   };
 
-  const endGame = () => {
+  const endGame = (clearedCount) => {
+    console.log(clearedCount);
     new Audio(gameOverSound).play();
     const currentDatetime = new Date();
     const diffInSeconds = Math.floor((currentDatetime - startDatetime) / 1000);
-    setElapsedTime(diffInSeconds);
-    console.log("getLeaderboardData running")
-    getLeaderboardData()
-    setPaused(true);
-    setGameOver(true);
-    sendData();
-
+    sendData(clearedCount, diffInSeconds)
+      .then(() => {
+        console.log("usage data sent successfully");
+        return getLeaderboardData();
+      })
+      .then(() => {
+        console.log("getLeaderboar");
+        setPaused(true);
+        setGameOver(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    // setPaused(true);
+    // setGameOver(true);
+    console.log(clearedCount);
+    // sendData(clearedCount, diffInSeconds);
   };
 
-  async function sendData() {
-    const dt = new Date()
+  const sendData = (clearedCount, elapsedTime) => {
+    const dt = new Date();
     const dataToSend = {
-      "email": user.email,
-      "login_time": dt,
-      "time_spent": elapsedTime,
-      "clear_count": clearedCount
-    }
-    axios.post('/stat', dataToSend)
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    })
-  }
+      email: user.email,
+      login_time: dt,
+      time_spent: elapsedTime,
+      clear_count: clearedCount,
+    };
+    console.log("data to send are:", dataToSend);
+    return axios
+      .post("/stat", dataToSend)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  };
 
   const getLeaderboardData = () => {
-    axios.get('/leaderboard')
-    .then(res => {
-      console.log('leaderboard get request sent')
-      setLeaderboardData(res.data)
-      console.log(leaderboardData)
-    })
+    axios.get("/leaderboard").then((res) => {
+      console.log("leaderboard get request sent");
+      setLeaderboardData(res.data);
+      console.log(leaderboardData);
+    });
   };
 
   //reduceLife and when all legos are gone close the game.
   const reduceLife = useCallback(() => {
     if (life.length === 0) {
-      console.log("game over");
-      endGame();
-
+      console.log("game over and clearedCount", clearedCount);
+      endGame(clearedCount);
     } else {
       life.pop();
-      setLife(life);
+      setLife([...life]);
     }
-  }, [life]);
+  }, [clearedCount, life]);
 
   //pause function
   const pauseGame = (e) => {
@@ -231,7 +243,6 @@ export default function Gaming({ setGameOn }) {
                 <span>
                   Type in the words before they hit the ground! Current Speed{" "}
                   {speed}
-                  {/* <button onClick={getLeaderboardData}>LeaderBoard Data</button> */}
                 </span>
                 <br />
                 <input
