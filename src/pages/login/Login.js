@@ -1,20 +1,20 @@
-import {useState} from 'react'
-import {useLogin} from '../../hooks/useLogin'
+import { useState } from "react";
+import { useLogin } from "../../hooks/useLogin";
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const {error, login} = useLogin();
-// console.log(email)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { error, login } = useLogin();
+  // console.log(email)
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  //console.log(email, password)
-  login(email, password)
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //console.log(email, password)
+    login(email, password);
+  };
 
   return (
-    <div className="user-form">
+    <div className="user-form" id="mid-body">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -38,5 +38,5 @@ const handleSubmit = (e) => {
         {error && <p>{error}</p>}
       </form>
     </div>
-  )
+  );
 }

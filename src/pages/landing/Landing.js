@@ -6,7 +6,7 @@ import movie from "../../assets/samplevid.webm";
 
 export default function Landing({ setGameOn }) {
   return (
-    <div className="landing">
+    <div className="instructions" id="mid-body">
       <h2>Instructions</h2>
 
       <p>
@@ -14,11 +14,13 @@ export default function Landing({ setGameOn }) {
         enter to clear them away. Every word you miss will take away a life
         block. When you run out of blocks the game is over.
       </p>
-        <video muted width="1000" height="800" controls="controls" autoplay loop>
-        <source src={movie} type="video/webm"/>
-        </video>
+      <video muted width="1000" height="800" controls="controls" autoplay loop>
+        <source src={movie} type="video/webm" />
+      </video>
 
-      <button onClick={() =>setGameOn(true)}>I AM READY TO BE A TYPING GOD</button>
+      <button onClick={() => setGameOn(true)}>
+        I AM READY TO BE A TYPING GOD
+      </button>
     </div>
   );
 }

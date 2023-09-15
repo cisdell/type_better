@@ -1,190 +1,74 @@
 .wrapper {
-  margin: 0 auto;
-  border: 1px solid white;
-  display: flex;
-  flex-direction: row;
-}
-.sidebar {
-  border: 1px solid green;
-  width: 250px;
-  overflow-y: auto;
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  width: 80%;
 }
 .container {
-  flex:1;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  border: 2px red solid;
 }
-p {
-  margin-bottom: 1rem;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 3rem 0 1.38rem;
-  font-weight: 300;
-  line-height: 1.3;
-}
-button {
-  background: white;
-  color: var(--black);
-  border: 0;
-  padding: 5px 8px;
-  font-family: var(--ibm-font);
+/* button {
+
+} */
+#mid-body {
+  height: 1000px;
+  border: 3px solid blue;
 }
 
-footer {
-  margin-top: 5rem;
-  text-transform: uppercase;
-}
-nav {
-  border: 1px solid red;
-}
-nav ul {
+.navbar {
   display: flex;
-  margin: 0 auto;
-  flex-direction: row;
+  border: 2px white;
+  justify-items: end;
   justify-content: flex-end;
+  height: 50px;
 }
-nav li {
-  margin: 1rem;
-  list-style: none;
+.navbar > * {
+  flex-direction: row;
+  margin-right: 1rem;
 }
-nav .guestmode li:hover{
-  cursor: pointer;
+.footer {
+  height: 50px;
 }
-.user-form {
+.instructions {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
 }
-.user-form label {
-  padding: 1rem;
+.instructions > * {
+  margin: 0;
 }
 .gaming-container {
-  border: 1px solid teal;
-  display: flex;
-  flex-direction: row;
-  flex-grow: 4;
-  width: 100%; /* Set the width to 100% */
-  height: 700px;
-  text-align: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
 }
-.game-stats {
+.gaming-container > * {
+  margin: auto;
+  align-self: end;
+}
+.game-action {
   display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin: auto 0;
-
-
+  flex-direction: column;
 }
 .words-display {
   /* position: absolute; */
-  width: 70%;
-  height: 80%;
+  width: 450px;
+  height: 550px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   grid-template-rows: repeat(17, 2fr);
 }
-.brick-out {
-  justify-content: center;
-}
-.gameover {
+#modal {
   position: fixed;
+  display: grid;
+  place-items: center;
+  border: 2px yellow solid;
+  margin: 10% 30% 30%;
+  background-color: whitesmoke;
+}
+.game-over {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction:column;
-  padding: 4rem;
-
-
-
-}
-
-
-.ground {
-
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-}
-/*
-.brick {
-  width: 100px;
-  height: 50px;
-  background-color: #cc5522;
-  border: 1px solid #884433;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
-*/
-
-/* .brick::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
-  z-index: -1;
-}
-
-.brick::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  right: 2px;
-  bottom: 2px;
-  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
-  z-index: -1;
-} */
-
-.attempt-box {
-  justify-content: center;
-}
-.ground {
-  align-self: flex-end;
-}
-.bricks-layout {
-  flex:1;
-  align-self: flex-end;
-}
-.landing {
-  display:flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
-.landing p {
-  padding: 2rem 10rem;
+.results {
+  color: black;
 }
-
-/* @keyframes fallAnimation {
-  0% {
-    transform: translateY(-100%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
-} */
-
-/* .words-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-} */
-/*
-.word {
-  position: absolute;
-  animation: fallAnimation 4s linear infinite;
-} */

@@ -199,24 +199,24 @@ export default function Gaming({ setGameOn }) {
 
   return (
     <>
-      <div className="gaming-container">
-        {gameOver && (
-          <Ending
-            setPaused={setPaused}
-            setGameOver={setGameOver}
-            setGameOn={setGameOn}
-            setResultPage={setResultPage}
-          />
-        )}
-        {resultPage && (
-          <Results
-            setGameOver={setGameOver}
-            setGameOn={setGameOn}
-            setResultPage={setResultPage}
-            leaderboardData={leaderboardData}
-          />
-        )}
-        <div>
+      {gameOver && (
+        <Ending
+          setPaused={setPaused}
+          setGameOver={setGameOver}
+          setGameOn={setGameOn}
+          setResultPage={setResultPage}
+        />
+      )}
+      {resultPage && (
+        <Results
+          setGameOver={setGameOver}
+          setGameOn={setGameOn}
+          setResultPage={setResultPage}
+          leaderboardData={leaderboardData}
+        />
+      )}
+      <div className="gaming-container" id="mid-body">
+        <div className="game-action">
           <p>To pause the game, press the spacebar.</p>
           <div className="game-stats">
             <span>Word count:{wordsCount}</span>

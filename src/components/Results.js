@@ -11,44 +11,23 @@ export default function Results({
     setGameOver(false);
     setResultPage(false);
   };
-  // console.log(leaderboardData)
-  // leaderboardData = [
-  //   {
-  //     clear_count: 50000,
-  //     email: "cisdell@gmail.comcom",
-  //     login_time: "Fri, 01 Sep 2023 21:45:16 GMT",
-  //   },
-  //   {
-  //     clear_count: 25,
-  //     email: "cisdell@gmail.com",
-  //     login_time: "Thu, 17 Aug 2023 21:19:07 GMT",
-  //   },
-  //   {
-  //     clear_count: 25,
-  //     email: "cisdell@gmail.com",
-  //     login_time: "Thu, 17 Aug 2023 21:19:07 GMT",
-  //   },
-  //   {
-  //     clear_count: 10,
-  //     email: "cisdell@gmail.com",
-  //     login_time: "Wed, 16 Aug 2023 21:19:07 GMT",
-  //   },
-  //   {
-  //     clear_count: 10,
-  //     email: "cisdell@gmail.com",
-  //     login_time: "Wed, 16 Aug 2023 21:19:07 GMT",
-  //   },
-  // ];
+  //only extract email Id's
+  for (let i = 0; i < leaderboardData.length; i++) {
+    var email = leaderboardData[i]["email"];
+    var id = email.substring(0, email.indexOf("@"));
+    leaderboardData[i] = { id, ...leaderboardData[i] };
+  }
+  console.log(leaderboardData);
 
   return (
-    <div className="results">
-      <div className="my-result"></div>
+    <div className="results" id="modal">
+      <div className="my-result">My Performance:</div>
       <ol className="result-list">
         {leaderboardData.map((item) => (
           <li>
-            <div>User:    {item['email']}</div>
-            <div>Clear Count:    {item['clear_count']}</div>
-            <div>Date/Time:    {item['login_time']}</div>
+            <div>User: {item["id"]}</div>
+            <div>Clear Count: {item["clear_count"]}</div>
+            <div>Date/Time: {item["login_time"]}</div>
           </li>
         ))}
       </ol>

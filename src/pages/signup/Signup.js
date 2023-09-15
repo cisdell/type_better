@@ -15,7 +15,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="user-form">
+    <div className="user-form" id="mid-body">
       <h2>SignUp</h2>
       <form onSubmit={handleSubmit}>
         <label>

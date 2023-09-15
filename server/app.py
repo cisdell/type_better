@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 from datetime import datetime, timezone
 import os
 import routes
-#maybe use ORM later
+
+# maybe use ORM later
 # from flask_sqlalchemy import SQLAlchemy
-#https://realpython.com/flask-blueprint/#what-a-flask-application-looks-like
+# https://realpython.com/flask-blueprint/#what-a-flask-application-looks-like
 load_dotenv()
 # db_uri = os.getenv('DB_URI')
 app = Flask(__name__)
@@ -17,5 +18,5 @@ CORS(app)
 app.register_blueprint(routes.routes)
 
 # routes.init_app(app)
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
