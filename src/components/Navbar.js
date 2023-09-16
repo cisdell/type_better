@@ -40,14 +40,14 @@ export default function Navbar({ setGameOn, setSoundOn, soundOn }) {
           </>
         )}
         {user && (
-          <li>
+          <>
             <button className="btn" onClick={() => setSoundOn(!soundOn)}>
               SoundOn/Off
             </button>
             <button className="btn" onClick={handleClick}>
               Logout
             </button>
-          </li>
+          </>
         )}
       </>
       {/* </ul> */}
