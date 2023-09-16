@@ -213,6 +213,8 @@ export default function Gaming({ setGameOn }) {
           setGameOn={setGameOn}
           setResultPage={setResultPage}
           leaderboardData={leaderboardData}
+          clearedCount={clearedCount}
+
         />
       )}
       <div className="gaming-container" id="mid-body">

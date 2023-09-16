@@ -5,19 +5,19 @@
 .container {
   display: flex;
   flex-direction: column;
-  border: 2px red solid;
+  /* border: 2px red solid; */
 }
 /* button {
 
 } */
 #mid-body {
   height: 1000px;
-  border: 3px solid blue;
+  /* border: 3px solid blue; */
 }
 
 .navbar {
   display: flex;
-  border: 2px white;
+  /* border: 2px white; */
   justify-items: end;
   justify-content: flex-end;
   height: 50px;
@@ -83,6 +83,8 @@
   border: 4px solid white;
   box-sizing: border-box;
   cursor: pointer;
-
 }
-
+.user-form form{
+  display: flex;
+  flex-direction: column;
+}

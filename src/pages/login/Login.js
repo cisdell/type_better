@@ -34,7 +34,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button>sign up</button>
+        <button className="btn">sign up</button>
         {error && <p>{error}</p>}
       </form>
     </div>
