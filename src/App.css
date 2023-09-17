@@ -5,14 +5,14 @@
 .container {
   display: flex;
   flex-direction: column;
-  border: 2px red solid;
+  /* border: 2px red solid; */
 }
 /* button {
 
 } */
 #mid-body {
   height: 1000px;
-  border: 3px solid blue;
+  /* border: 3px solid blue; */
 }
 
 .navbar {
@@ -76,4 +76,7 @@
 }
 .results {
   color: black;
+}
+.btn {
+  font-size
 }

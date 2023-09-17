@@ -36,7 +36,7 @@ export default function Gaming({ setGameOn }) {
   const [elapsedTime, setElapsedTime] = useState(0); // userdata
   const [startDatetime, setStartDatetime] = useState(new Date());
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(500); // testing for 5000
+  const [speed, setSpeed] = useState(1500); // testing for 5000
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(100); //userdata
