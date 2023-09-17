@@ -17,7 +17,7 @@
 
 .navbar {
   display: flex;
-  border: 2px white;
+  /* border: 2px white; */
   justify-items: end;
   justify-content: flex-end;
   height: 50px;
@@ -76,7 +76,4 @@
 }
 .results {
   color: black;
-}
-.btn {
-  font-size
 }

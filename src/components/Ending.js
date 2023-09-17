@@ -8,7 +8,7 @@ export default function Ending({ setGameOver, setResultPage }) {
   return (
     <div className="gameover" id="modal">
       <img src={gameover} alt="gameover" width="500" height="500" />
-      <button onClick={closeOut}>Show me the Result</button>
+      <button className="btn" onClick={closeOut}>Goto Result and Leaderboard</button>
     </div>
   );
 }

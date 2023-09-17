@@ -5,6 +5,7 @@ export default function Results({
   setGameOver,
   setResultPage,
   leaderboardData,
+  clearedCount,
 }) {
   const handleClose = () => {
     setGameOn(false);
@@ -21,7 +22,11 @@ export default function Results({
 
   return (
     <div className="results" id="modal">
-      <div className="my-result">My Performance:</div>
+      <div className="my-result">
+        My Performance: {clearedCount} words cleared
+
+        </div>
+
       <ol className="result-list">
         {leaderboardData.map((item) => (
           <li>

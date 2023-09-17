@@ -39,7 +39,7 @@ export default function Gaming({ setGameOn }) {
   const [speed, setSpeed] = useState(1500); // testing for 5000
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
-  const [clearedCount, setClearedCount] = useState(100); //userdata
+  const [clearedCount, setClearedCount] = useState(0); //userdata
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [resultPage, setResultPage] = useState(false);
@@ -213,6 +213,8 @@ export default function Gaming({ setGameOn }) {
           setGameOn={setGameOn}
           setResultPage={setResultPage}
           leaderboardData={leaderboardData}
+          clearedCount={clearedCount}
+
         />
       )}
       <div className="gaming-container" id="mid-body">
